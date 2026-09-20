@@ -1,61 +1,24 @@
 import React from 'react';
-import { Sparkles, Shield, Lock, Terminal, Heart } from 'lucide-react';
+import { Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-slate-800 bg-[#070a10] text-slate-400 py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
-        <div className="md:col-span-2 space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center text-white">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <span className="text-xl font-bold text-white tracking-tight">WhisperLedger</span>
-          </div>
-          <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-            The autonomous money operating system for personal and shared households. Designed with high-throughput Go backend services, end-to-end encryption, and native Android SMS telemetry.
-          </p>
-          <div className="flex items-center gap-4 text-xs text-slate-500 pt-2">
-            <span className="flex items-center gap-1">
-              <Lock className="w-3.5 h-3.5 text-emerald-400" /> AES-256 / Argon2id
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1">
-              <Shield className="w-3.5 h-3.5 text-cyan-400" /> Zero Telemetry Leaks
-            </span>
-            <span>•</span>
-            <span className="flex items-center gap-1">
-              <Terminal className="w-3.5 h-3.5 text-indigo-400" /> Golang 1.24 API Core
-            </span>
-          </div>
-        </div>
-
-        <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4">Architecture</h4>
-          <ul className="space-y-2 text-sm">
-            <li><a href="#simulator" className="hover:text-cyan-400">3-Way Outflow Ledger</a></li>
-            <li><a href="#debt-graph" className="hover:text-cyan-400">Debt Simplification Graph</a></li>
-            <li><a href="#features" className="hover:text-cyan-400">Money Leak Detective</a></li>
-            <li><a href="/admin" className="hover:text-cyan-400">Executive Admin Portal</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4">Ecosystem</h4>
-          <ul className="space-y-2 text-sm">
-            <li><a href="https://github.com/Agarwal16/whisperledger-backend" className="hover:text-cyan-400">Go Backend Repo</a></li>
-            <li><a href="https://github.com/Agarwal16/whisperledger-frontend" className="hover:text-cyan-400">React Native / Expo App</a></li>
-            <li><a href="https://github.com/Agarwal16/whisperledger-web" className="hover:text-cyan-400">Web Landing & Dashboard</a></li>
-            <li><a href="/health" className="hover:text-cyan-400">System Status</a></li>
-          </ul>
-        </div>
+    <footer className="border-t border-slate-200/60 bg-white py-10 px-4 sm:px-6 max-w-6xl mx-auto text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4 mt-20">
+      <div className="flex items-center gap-2">
+        <img src="/assets/logo.png" alt="WhisperLedger" className="w-6 h-6 rounded-md object-cover" />
+        <span className="font-bold text-dark">WhisperLedger</span>
+        <span>© 2026 WhisperLedger Technologies.</span>
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-900 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
-        <p>© 2026 WhisperLedger Technologies. Strictly Private & Autonomous.</p>
-        <p className="flex items-center gap-1 mt-4 md:mt-0">
-          Crafted with <Heart className="w-3.5 h-3.5 text-rose-500" /> for complete financial clarity.
-        </p>
+      <div className="flex flex-wrap items-center gap-5 justify-center">
+        <a href="/#how-it-works" className="hover:text-primary transition-colors">How it Works</a>
+        <a href="/#features" className="hover:text-primary transition-colors">Superpowers</a>
+        <a href="/#recovery" className="hover:text-primary transition-colors">Refund Recovery</a>
+        <a href="/#pricing" className="hover:text-primary transition-colors">Pricing</a>
+        <a href="mailto:support@whisperledger.app" className="hover:text-primary transition-colors">Support Desk</a>
+        <Link to="/admin" className="hover:text-primary transition-colors flex items-center gap-1 font-semibold text-slate-500 hover:text-primary">
+          <Shield className="w-3.5 h-3.5" /> Admin Console
+        </Link>
       </div>
     </footer>
   );

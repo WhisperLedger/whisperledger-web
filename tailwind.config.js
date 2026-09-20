@@ -7,6 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: '#4D43FE',
+        primaryHover: '#3b32e6',
+        accentLime: '#B5EF85',
+        dark: '#0A0D18',
+        slateBody: '#4B5563',
+        canvas: '#F8FAFF',
         brand: {
           50: '#ecfeff',
           100: '#cffafe',
@@ -14,19 +20,6 @@ export default {
           600: '#0891b2',
           700: '#0e7490',
           900: '#164e63',
-        },
-        emerald: {
-          400: '#34d399',
-          500: '#10b981',
-          600: '#059669',
-        },
-        indigo: {
-          500: '#6366f1',
-          600: '#4f46e5',
-        },
-        amber: {
-          400: '#fbbf24',
-          500: '#f59e0b',
         },
         surface: {
           900: '#0b0f17',
@@ -36,9 +29,11 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       }
     },
   },
   plugins: [],
 }
+
