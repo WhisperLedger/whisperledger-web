@@ -1,67 +1,113 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Sparkles, LayoutDashboard, Download } from 'lucide-react';
+import { Shield, ArrowDownCircle, Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#0b0f17]/80 border-b border-slate-800/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/85 border-b border-slate-200/60 transition-all">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+        
+        {/* Brand Logo with Official App Icon */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
-              WhisperLedger
-            </span>
-            <span className="block text-[10px] tracking-widest uppercase font-semibold text-cyan-400">
-              Autonomous Wealth OS
-            </span>
-          </div>
+          <img 
+            src="/assets/logo.png" 
+            alt="WhisperLedger Official Logo" 
+            className="w-10 h-10 rounded-2xl shadow-xs object-cover group-hover:scale-105 transition-transform" 
+          />
+          <span className="text-xl font-extrabold tracking-tight text-dark flex items-center gap-0.5">
+            Whisper<span className="text-primary">Ledger</span>
+          </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
-          <a href="/#features" className="hover:text-cyan-400 transition-colors">
-            Core Innovations
-          </a>
-          <a href="/#simulator" className="hover:text-cyan-400 transition-colors">
-            3-Way Ledger
-          </a>
-          <a href="/#debt-graph" className="hover:text-cyan-400 transition-colors">
-            Debt Simplifier
-          </a>
-          <a href="/#security" className="hover:text-cyan-400 transition-colors">
-            Enterprise Security
-          </a>
-        </nav>
+        {/* Navigation Links */}
+        {!isAdmin ? (
+          <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+            <a href="/#voice-ai" className="hover:text-primary transition-colors">Voice Demo</a>
+            <a href="/#how-it-works" className="hover:text-primary transition-colors">How it Works</a>
+            <a href="/#features" className="hover:text-primary transition-colors">Superpowers</a>
+            <a href="/#recovery" className="hover:text-primary transition-colors flex items-center gap-1.5">
+              Refund Recovery <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+            </a>
+            <a href="/#calculator" className="hover:text-primary transition-colors">Calculator</a>
+            <a href="/#pricing" className="hover:text-primary transition-colors">Pricing</a>
+            <a href="/#faq" className="hover:text-primary transition-colors">FAQ</a>
+          </nav>
+        ) : (
+          <div className="hidden md:flex items-center gap-2">
+            <span className="admin-pill admin-pill-emerald text-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Root Enclave Session
+            </span>
+          </div>
+        )}
 
-        <div className="flex items-center gap-4">
-          <Link
-            to="/admin"
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all ${
-              isAdmin
-                ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-            }`}
+        {/* Actions CTA */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          <a href="/#download" className="btn-super-primary !py-2.5 !px-5 !text-xs">
+            <ArrowDownCircle className="w-4 h-4" />
+            <span>Get WhisperLedger</span>
+          </a>
+          <Link 
+            to="/admin" 
+            className={`p-2.5 rounded-2xl border transition-all flex items-center gap-1.5 text-xs font-bold shadow-xs ${
+              isAdmin 
+                ? 'bg-primary text-white border-primary' 
+                : 'border-slate-200 hover:border-primary text-slate-600 hover:text-primary bg-white/90'
+            }`} 
+            title="Admin Portal"
           >
-            <LayoutDashboard className="w-4 h-4" />
-            <span>Admin Console</span>
+            <Shield className="w-4 h-4 text-primary" />
+            <span className="hidden xl:inline">Admin</span>
           </Link>
-
-          <a
-            href="https://github.com/Agarwal16/whisperledger-frontend/releases"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:opacity-95 transition-all"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span>Download APK</span>
-          </a>
         </div>
+
+        {/* Mobile Hamburger Button */}
+        <button 
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="sm:hidden p-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 shadow-xs" 
+          aria-label="Open navigation menu"
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 bg-white flex flex-col p-6 shadow-2xl sm:hidden">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3">
+              <img src="/assets/logo.png" alt="WhisperLedger" className="w-9 h-9 rounded-xl object-cover" />
+              <span className="font-extrabold text-dark text-lg">Whisper<span className="text-primary">Ledger</span></span>
+            </div>
+            <button 
+              onClick={() => setMobileOpen(false)}
+              className="p-2 text-slate-500 hover:text-black"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <nav className="flex flex-col gap-5 py-8 text-base font-bold text-dark text-left">
+            <a href="/#voice-ai" onClick={() => setMobileOpen(false)} className="hover:text-primary">🎙️ Voice Demo Live</a>
+            <a href="/#how-it-works" onClick={() => setMobileOpen(false)} className="hover:text-primary">⚙️ How it Works</a>
+            <a href="/#features" onClick={() => setMobileOpen(false)} className="hover:text-primary">⚡ Superpowers</a>
+            <a href="/#recovery" onClick={() => setMobileOpen(false)} className="hover:text-primary">🛡️ Refund Recovery</a>
+            <a href="/#calculator" onClick={() => setMobileOpen(false)} className="hover:text-primary">📊 ROI Calculator</a>
+            <a href="/#pricing" onClick={() => setMobileOpen(false)} className="hover:text-primary">💳 Pricing &amp; Plans</a>
+            <a href="/#faq" onClick={() => setMobileOpen(false)} className="hover:text-primary">❓ FAQ</a>
+            <Link to="/admin" onClick={() => setMobileOpen(false)} className="text-primary hover:text-primaryHover flex items-center gap-2 pt-2 border-t border-slate-100 font-bold">
+              <Shield className="w-4 h-4" /> Admin Console
+            </Link>
+          </nav>
+          <div className="mt-auto pt-6 border-t border-slate-100">
+            <a href="/#download" onClick={() => setMobileOpen(false)} className="btn-super-primary w-full justify-center !py-3.5">
+              <span>Download WhisperLedger</span>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
