@@ -31,8 +31,8 @@ export const Navbar: React.FC = () => {
 
         {/* Actions CTA */}
         <div className="hidden sm:flex items-center gap-2.5">
-          <a href="/#download" className="inline-flex items-center rounded-full bg-dark px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-slate-700">
-            <span>App coming soon</span>
+          <a href="/downloads/whisperledger-v1.0.0.apk" download="WhisperLedger-v1.0.0.apk" className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700 shadow-sm">
+            <span>Download APK</span>
           </a>
         </div>
 
