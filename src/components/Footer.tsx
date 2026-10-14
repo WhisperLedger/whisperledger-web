@@ -1,6 +1,4 @@
 import React from 'react';
-import { Shield } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
@@ -12,13 +10,12 @@ export const Footer: React.FC = () => {
       </div>
       <div className="flex flex-wrap items-center gap-5 justify-center">
         <a href="/#how-it-works" className="hover:text-primary transition-colors">How it Works</a>
-        <a href="/#features" className="hover:text-primary transition-colors">Superpowers</a>
+        <a href="/#features" className="hover:text-primary transition-colors">Features</a>
         <a href="/#recovery" className="hover:text-primary transition-colors">Refund Recovery</a>
         <a href="/#pricing" className="hover:text-primary transition-colors">Pricing</a>
+        <a href="/privacy" className="hover:text-primary transition-colors">Privacy</a>
+        <a href="/terms" className="hover:text-primary transition-colors">Terms</a>
         <a href="mailto:support@whisperledger.app" className="hover:text-primary transition-colors">Support Desk</a>
-        <Link to="/admin" className="hover:text-primary transition-colors flex items-center gap-1 font-semibold text-slate-500 hover:text-primary">
-          <Shield className="w-3.5 h-3.5" /> Admin Console
-        </Link>
       </div>
     </footer>
   );
