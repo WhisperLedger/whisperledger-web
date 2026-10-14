@@ -1,14 +1,16 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://whisperledger-api-dozavowbya-el.a.run.app/api/v1';
 
 export interface User {
   id: string;
   email: string;
   full_name: string;
   phone_number?: string;
-  role: 'user' | 'household_admin' | 'platform_admin';
+  avatar_url?: string;
+  role: 'user' | 'household_admin' | 'platform_admin' | 'admin';
   is_active: boolean;
   household_id?: string;
   created_at: string;
+  updated_at?: string;
 }
 
 export interface AdminMetrics {
@@ -19,6 +21,37 @@ export interface AdminMetrics {
   total_receivables_pending: number;
   active_users_7_days: number;
   generated_at: string;
+}
+
+export interface DailyVolumeStat {
+  date: string;
+  amount: number;
+  count: number;
+}
+
+export interface SystemLogEntry {
+  timestamp: string;
+  level: string;
+  message: string;
+  source: string;
+}
+
+export interface CloudTelemetry {
+  service: string;
+  region: string;
+  revision: string;
+  environment: string;
+  status: string;
+  uptime_seconds: number;
+  go_version: string;
+  memory_alloc_mb: number;
+  memory_sys_mb: number;
+  db_pool_total: number;
+  db_pool_idle: number;
+  db_pool_acquired: number;
+  daily_volumes: DailyVolumeStat[];
+  recent_logs: SystemLogEntry[];
+  gcp_console_links: Record<string, string>;
 }
 
 export interface OutflowSummary {
@@ -64,39 +97,37 @@ class ApiService {
     return res.json();
   }
 
-  async getMe() {
+  async getMe(): Promise<{ success: boolean; data?: User; error?: { message: string } }> {
     const res = await fetch(`${API_BASE_URL}/auth/me`, {
       headers: this.getHeaders(),
     });
     return res.json();
   }
 
-  async getAdminMetrics(): Promise<{ success: boolean; data: AdminMetrics }> {
+  async getAdminMetrics(): Promise<{ success: boolean; data?: AdminMetrics; error?: { message: string } }> {
     const res = await fetch(`${API_BASE_URL}/admin/metrics`, {
       headers: this.getHeaders(),
     });
     return res.json();
   }
 
-  async getAdminUsers(limit = 20, offset = 0): Promise<{ success: boolean; data: User[]; meta: { total: number } }> {
+  async getAdminUsers(limit = 50, offset = 0): Promise<{ success: boolean; data?: User[]; meta?: { total: number }; error?: { message: string } }> {
     const res = await fetch(`${API_BASE_URL}/admin/users?limit=${limit}&offset=${offset}`, {
       headers: this.getHeaders(),
     });
     return res.json();
   }
 
-  async getMoneyLeaks() {
-    const res = await fetch(`${API_BASE_URL}/detective/leaks`, {
+  async getCloudTelemetry(): Promise<{ success: boolean; data?: CloudTelemetry; error?: { message: string } }> {
+    const res = await fetch(`${API_BASE_URL}/admin/telemetry`, {
       headers: this.getHeaders(),
     });
     return res.json();
   }
 
-  async getSafeToSpend(budget = 50000) {
-    const res = await fetch(`${API_BASE_URL}/detective/safe-to-spend?budget=${budget}`, {
-      headers: this.getHeaders(),
-    });
-    return res.json();
+  logout() {
+    localStorage.removeItem('whisperledger_access_token');
+    localStorage.removeItem('whisperledger_admin_user');
   }
 }
 

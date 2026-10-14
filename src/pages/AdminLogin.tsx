@@ -1,195 +1,141 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { Shield, ShieldAlert, UserCheck, Lock, Fingerprint, ArrowLeft } from 'lucide-react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, isAuthorizedAdmin } from '../services/firebase';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, LockKeyhole, ShieldCheck, UserRound, Server } from 'lucide-react';
+import { api } from '../services/api';
 
 export const AdminLogin: React.FC = () => {
-  const [email, setEmail] = useState('agarwaltanmay401@gmail.com');
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [terminalLogs, setTerminalLogs] = useState<string[]>([
-    '> [ENCLAVE] Initializing zero-trust hardware handshake...',
-    '> [POLICY] Restricting session token to: agarwaltanmay401@gmail.com',
-    '> [STATUS] Ready for root administrator credentials.'
-  ]);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    let active = true;
+    const token = localStorage.getItem('whisperledger_access_token');
+    if (token) {
+      api.getMe().then((res) => {
+        if (active && res.success && res.data) {
+          const role = res.data.role;
+          if (role === 'platform_admin' || role === 'admin' || role === 'household_admin') {
+            navigate('/admin', { replace: true });
+          }
+        }
+      }).catch(() => null);
+    }
+    return () => { active = false; };
+  }, [navigate]);
 
-  const appendLog = (msg: string) => {
-    setTerminalLogs((prev) => [...prev, `> ${msg}`]);
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
     setError(null);
     setLoading(true);
 
-    appendLog(`[INSPECT_IDENTITY] Analyzing credentials for: ${email}`);
-
-    if (!isAuthorizedAdmin(email)) {
-      appendLog(`[ACCESS_DENIED] Unauthorized identity attempt: ${email}`);
-      setError('Access denied. Sign in with the authorized root administrator account (agarwaltanmay401@gmail.com).');
-      setLoading(false);
-      return;
-    }
-
-    appendLog('[IDENTITY_MATCH] Authorized root identity verified. Authenticating session key...');
-
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      appendLog(`[SESSION_ESTABLISHED] Verified Firebase session for ${userCredential.user.email}`);
-      localStorage.setItem('whisperledger_access_token', 'firebase_root_token');
-      localStorage.setItem('whisperledger_user', JSON.stringify({ email: userCredential.user.email, role: 'root_admin' }));
-      navigate('/admin');
-    } catch (err: any) {
-      appendLog(`[ERROR] Authentication failure: ${err.message}`);
-      // If dev offline, allow fallback preview for local dev
-      if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
-        setError('Firebase rejected these credentials. Check administrator email and password.');
+      const res = await api.login(email.trim(), password);
+      if (res.success && res.data?.tokens?.access_token) {
+        const user = res.data.user;
+        if (user.role !== 'platform_admin' && user.role !== 'admin' && user.role !== 'household_admin') {
+          setError('This account does not have platform administrator privileges.');
+          setLoading(false);
+          return;
+        }
+
+        localStorage.setItem('whisperledger_access_token', res.data.tokens.access_token);
+        localStorage.setItem('whisperledger_admin_user', JSON.stringify(user));
+        navigate('/admin', { replace: true });
       } else {
-        setError(err.message || 'Authentication failed. Please check network connection.');
+        setError(res.error?.message || 'Invalid administrator credentials. Check your details.');
       }
+    } catch (err: any) {
+      setError(err?.message || 'Unable to connect to WhisperLedger Cloud API.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="nex-login-wrapper">
-      <div className="w-full max-w-lg space-y-5 relative z-10">
-        
-        {/* Terminal Header Badge */}
-        <div className="flex items-center justify-between px-2">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400">
-              Zero-Trust Enclave Gateway v2.4
-            </span>
-          </div>
-          <span className="text-[10px] font-mono text-primary bg-primary/20 border border-primary/30 px-2 py-0.5 rounded-full font-bold">
-            AES-256 GCM
-          </span>
-        </div>
-
-        {/* Nexsecurity Glass Card */}
-        <div className="nex-login-card p-7 sm:p-10 space-y-6">
-          
-          {/* Brand Title */}
-          <div className="flex items-center gap-3.5 pb-5 border-b border-white/10">
-            <img 
-              src="/assets/logo.png" 
-              alt="WhisperLedger Logo" 
-              className="w-12 h-12 rounded-2xl shadow-lg object-cover ring-2 ring-primary/40" 
-            />
-            <div>
-              <h1 className="text-xl font-black text-white tracking-tight">
-                Whisper<span className="text-primary">Ledger</span> 
-                <span className="text-xs font-mono font-bold text-accentLime uppercase bg-accentLime/10 border border-accentLime/20 px-2 py-0.5 rounded-md ml-2">
-                  Root Admin
-                </span>
-              </h1>
-              <p className="text-xs text-slate-400">Hardware-Isolated Control &amp; Telemetry Gateway</p>
-            </div>
-          </div>
-
-          {/* Single-User Policy Alert */}
-          <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200 flex items-start gap-2.5">
-            <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-            <div>
-              <strong className="font-bold text-white block">Strict Single-User Access Policy:</strong>
-              <span>
-                Console permissions restricted exclusively to root administrator: <strong className="text-accentLime font-mono">agarwaltanmay401@gmail.com</strong>.
+    <main className="admin-shell min-h-screen bg-slate-50 px-4 py-8 sm:px-6 sm:py-12 flex items-center justify-center">
+      <section className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5 sm:p-8">
+        <div className="flex items-start gap-3 border-b border-slate-100 pb-6">
+          <img src="/assets/logo.png" alt="WhisperLedger" className="h-11 w-11 rounded-xl object-cover" />
+          <div>
+            <div className="flex items-center gap-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">WhisperLedger</p>
+              <span className="flex items-center gap-1 text-[10px] font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full">
+                <Server className="w-2.5 h-2.5" /> Neon PostgreSQL
               </span>
             </div>
+            <h1 className="mt-1 text-xl font-bold tracking-tight text-slate-950">Cloud Admin Portal</h1>
           </div>
-
-          {/* Login Form */}
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
-                <span>Administrator Identity</span>
-                <span className="text-[10px] font-mono text-slate-400">RESTRICTED_ID</span>
-              </label>
-              <div className="relative">
-                <UserCheck className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-primary" />
-                <input 
-                  type="email" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="nex-input !pl-10 font-mono text-xs" 
-                  required 
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center justify-between">
-                <span>Root Master Key</span>
-                <span className="text-[10px] font-mono text-slate-400">SHA-512</span>
-              </label>
-              <div className="relative">
-                <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-primary" />
-                <input 
-                  type="password" 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••" 
-                  className="nex-input !pl-10 text-xs" 
-                  required 
-                />
-              </div>
-            </div>
-
-            {error && (
-              <div className="text-xs bg-rose-500/15 text-rose-300 border border-rose-500/30 rounded-xl p-3 font-medium">
-                {error}
-              </div>
-            )}
-
-            <button 
-              type="submit" 
-              disabled={loading}
-              className="btn-super-primary w-full !py-3.5 !text-sm mt-2 shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
-            >
-              <Fingerprint className="w-4 h-4" />
-              <span>{loading ? 'Authenticating...' : 'Authenticate Root Session ➔'}</span>
-            </button>
-          </form>
-
-          {/* Live Nexsecurity Terminal Inspection Box */}
-          <div className="space-y-1.5 pt-2">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 uppercase">
-              <span>Terminal Telemetry</span>
-              <span>node: ap-south-1</span>
-            </div>
-            <div className="nex-terminal-box h-24 overflow-y-auto space-y-1">
-              {terminalLogs.map((log, idx) => (
-                <div key={idx} className="text-slate-400 font-mono text-[11px]">{log}</div>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick Demo Bypass for Testing */}
-          <div className="text-center pt-2 flex items-center justify-between text-xs">
-            <Link to="/" className="text-slate-400 hover:text-white transition-colors flex items-center gap-1.5">
-              <ArrowLeft className="w-3.5 h-3.5" /> Return to Website
-            </Link>
-            <button 
-              type="button"
-              onClick={() => {
-                localStorage.setItem('whisperledger_access_token', 'dev_preview_token');
-                navigate('/admin');
-              }}
-              className="text-primary hover:underline font-mono text-[11px]"
-            >
-              Developer Preview Mode →
-            </button>
-          </div>
-
         </div>
-      </div>
-    </div>
+
+        <p className="mt-5 text-sm leading-6 text-slate-600">
+          Sign in with your platform administrator account to manage PostgreSQL ledgers, monitor Cloud Run runtime telemetry, and inspect real-time system logs.
+        </p>
+
+        <form onSubmit={handleLogin} className="mt-6 space-y-4">
+          <div>
+            <label htmlFor="admin-email" className="mb-1.5 block text-sm font-semibold text-slate-800">
+              Administrator Email
+            </label>
+            <div className="relative">
+              <UserRound className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <input
+                id="admin-email"
+                type="email"
+                autoComplete="username"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="admin@whisperledger.com"
+                className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-950 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="admin-password" className="mb-1.5 block text-sm font-semibold text-slate-800">
+              Password
+            </label>
+            <div className="relative">
+              <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <input
+                id="admin-password"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="••••••••••••"
+                className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-950 outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
+                required
+              />
+            </div>
+          </div>
+
+          {error && (
+            <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-sm text-rose-700">
+              {error}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-super-primary flex w-full items-center justify-center gap-2 !py-3 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition"
+          >
+            <ShieldCheck className="h-4 w-4" />
+            {loading ? 'Authenticating with Cloud API…' : 'Sign In with PostgreSQL Auth'}
+          </button>
+        </form>
+
+        <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-5 text-xs text-slate-500">
+          <Link to="/" className="inline-flex items-center gap-1.5 font-medium hover:text-primary">
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to website
+          </Link>
+          <span className="font-mono text-[11px] text-slate-400">GCP Cloud Run • asia-south1</span>
+        </div>
+      </section>
+    </main>
   );
 };
