@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { LockKeyhole, ShieldCheck, UserRound, Server } from 'lucide-react';
+import { LockKeyhole, ShieldCheck, UserRound, ArrowLeft } from 'lucide-react';
 import { api } from '../../services/api';
 
 export const AdminLogin: React.FC = () => {
@@ -55,32 +55,27 @@ export const AdminLogin: React.FC = () => {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 sm:py-12 flex items-center justify-center">
-      <section className="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5 sm:p-8">
-        <div className="flex items-start gap-3 border-b border-slate-100 pb-6">
-          <img src="/assets/logo.png" alt="WhisperLedger" className="h-11 w-11 rounded-xl object-cover" />
+    <main className="min-h-screen bg-[#0f1117] text-slate-100 px-4 py-8 sm:px-6 sm:py-12 flex items-center justify-center">
+      <section className="w-full max-w-md rounded-2xl border border-slate-800 bg-[#161922] p-6 shadow-2xl sm:p-8">
+        <div className="flex items-start gap-3 border-b border-slate-800 pb-5">
+          <img src="/assets/logo.png" alt="WhisperLedger" className="h-10 w-10 rounded-xl object-cover" />
           <div>
-            <div className="flex items-center gap-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-600">WhisperLedger</p>
-              <span className="flex items-center gap-1 text-[10px] font-bold uppercase bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full">
-                <Server className="w-2.5 h-2.5" /> ROOT OPERATIONS
-              </span>
-            </div>
-            <h1 className="mt-1 text-xl font-bold tracking-tight text-slate-950">Operator Console</h1>
+            <p className="text-[10px] font-mono uppercase tracking-wider text-slate-400">WhisperLedger</p>
+            <h1 className="text-base font-bold text-white tracking-tight">Operations Console</h1>
           </div>
         </div>
 
-        <p className="mt-5 text-sm leading-6 text-slate-600">
-          Sign in to dispatch push notifications under app name <strong>WhisperLedger</strong>, manage user subscriptions, and inspect real-time cloud metrics.
+        <p className="mt-4 text-xs leading-relaxed text-slate-400">
+          Administrative gateway for user entitlements, notification broadcast dispatch, and Cloud Run telemetry inspection.
         </p>
 
         <form onSubmit={handleLogin} className="mt-6 space-y-4">
           <div>
-            <label htmlFor="admin-email" className="mb-1.5 block text-sm font-semibold text-slate-800">
+            <label htmlFor="admin-email" className="mb-1.5 block text-xs font-medium text-slate-300">
               Administrator Email
             </label>
             <div className="relative">
-              <UserRound className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <UserRound className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500" />
               <input
                 id="admin-email"
                 type="email"
@@ -88,18 +83,18 @@ export const AdminLogin: React.FC = () => {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder="admin@whisperledger.com"
-                className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-950 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10"
+                className="w-full rounded-lg border border-slate-800 bg-[#0f1117] py-2 pl-9 pr-3 text-xs text-white placeholder-slate-500 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="admin-password" className="mb-1.5 block text-sm font-semibold text-slate-800">
+            <label htmlFor="admin-password" className="mb-1.5 block text-xs font-medium text-slate-300">
               Password
             </label>
             <div className="relative">
-              <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <LockKeyhole className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500" />
               <input
                 id="admin-password"
                 type="password"
@@ -107,14 +102,14 @@ export const AdminLogin: React.FC = () => {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 placeholder="••••••••••••"
-                className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-950 outline-none transition focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10"
+                className="w-full rounded-lg border border-slate-800 bg-[#0f1117] py-2 pl-9 pr-3 text-xs text-white placeholder-slate-500 outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
                 required
               />
             </div>
           </div>
 
           {error && (
-            <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-sm text-rose-700">
+            <p role="alert" className="rounded-lg border border-rose-900/50 bg-rose-950/40 px-3 py-2 text-xs text-rose-300 font-medium">
               {error}
             </p>
           )}
@@ -122,18 +117,19 @@ export const AdminLogin: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="flex w-full items-center justify-center gap-2 py-3 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 py-2.5 text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition disabled:opacity-50 mt-5"
           >
             <ShieldCheck className="h-4 w-4" />
             {loading ? 'Authenticating with PostgreSQL…' : 'Sign In to Operations Console'}
           </button>
         </form>
 
-        <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-5 text-xs text-slate-500">
-          <Link to="/" className="text-blue-600 hover:text-blue-700 font-medium">
-            ← Back to WhisperLedger
+        <div className="mt-6 flex items-center justify-between border-t border-slate-800 pt-4 text-xs text-slate-500">
+          <Link to="/" className="text-blue-400 hover:text-blue-300 flex items-center gap-1.5 transition">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Return to Landing Page</span>
           </Link>
-          <span className="font-mono text-[11px] text-slate-400">GCP Cloud Run • Neon DB</span>
+          <span className="font-mono text-[10px] text-slate-500">Cloud Run • Neon DB</span>
         </div>
       </section>
     </main>
