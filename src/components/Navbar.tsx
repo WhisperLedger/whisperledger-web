@@ -31,8 +31,9 @@ export const Navbar: React.FC = () => {
 
         {/* Actions CTA */}
         <div className="hidden sm:flex items-center gap-2.5">
-          <a href="/downloads/whisperledger-v1.0.0.apk" download="WhisperLedger-v1.0.0.apk" className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-blue-700 shadow-sm">
-            <span>Download APK</span>
+          <a href="/#early-access" className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#263246] shadow-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Request Early Access</span>
           </a>
         </div>
 
@@ -69,8 +70,8 @@ export const Navbar: React.FC = () => {
             <a href="/#faq" onClick={() => setMobileOpen(false)} className="hover:text-primary">FAQ</a>
           </nav>
           <div className="mt-auto pt-6 border-t border-slate-100">
-            <a href="/#download" onClick={() => setMobileOpen(false)} className="btn-super-primary w-full justify-center !py-3.5">
-              <span>WhisperLedger is coming soon</span>
+            <a href="/#early-access" onClick={() => setMobileOpen(false)} className="btn-super-primary w-full justify-center !py-3.5">
+              <span>Request Early Access</span>
             </a>
           </div>
         </div>
