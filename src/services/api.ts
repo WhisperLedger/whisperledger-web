@@ -9,6 +9,9 @@ export interface User {
   role: 'user' | 'household_admin' | 'platform_admin' | 'admin';
   is_active: boolean;
   household_id?: string;
+  plan: 'pro' | 'starter_free';
+  status: 'active' | 'suspended' | 'flagged';
+  push_ready: boolean;
   created_at: string;
   updated_at?: string;
 }
@@ -54,23 +57,22 @@ export interface CloudTelemetry {
   gcp_console_links: Record<string, string>;
 }
 
-export interface OutflowSummary {
-  total_outflow: number;
-  true_personal_total: number;
-  household_share_total: number;
-  recoverable_total: number;
-  category_breakdown: Record<string, number>;
+export interface BroadcastNotification {
+  id: string;
+  app_name: string;
+  title: string;
+  body: string;
+  image_url?: string;
+  target: 'all' | 'pro_only' | 'single_user' | string;
+  target_user_id?: string;
+  type: 'promo' | 'system' | 'security' | 'update' | string;
+  delivered_count: number;
+  dispatch_status: 'delivered' | 'queued' | 'failed' | string;
+  sent_at: string;
+  created_at?: string;
 }
 
-export interface DebtResolution {
-  from_user_id: string;
-  from_user_name: string;
-  to_user_id: string;
-  to_user_name: string;
-  amount: number;
-}
-
-class ApiService {
+class AdminApiService {
   private getHeaders(): HeadersInit {
     const token = localStorage.getItem('whisperledger_access_token');
     return {
@@ -84,15 +86,6 @@ class ApiService {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
-    });
-    return res.json();
-  }
-
-  async register(email: string, password: string, fullName: string) {
-    const res = await fetch(`${API_BASE_URL}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, full_name: fullName }),
     });
     return res.json();
   }
@@ -111,9 +104,18 @@ class ApiService {
     return res.json();
   }
 
-  async getAdminUsers(limit = 50, offset = 0): Promise<{ success: boolean; data?: User[]; meta?: { total: number }; error?: { message: string } }> {
+  async getAdminUsers(limit = 100, offset = 0): Promise<{ success: boolean; data?: User[]; meta?: { total: number }; error?: { message: string } }> {
     const res = await fetch(`${API_BASE_URL}/admin/users?limit=${limit}&offset=${offset}`, {
       headers: this.getHeaders(),
+    });
+    return res.json();
+  }
+
+  async updateUserSubscription(userId: string, plan: 'pro' | 'starter_free', status: 'active' | 'suspended' | 'flagged') {
+    const res = await fetch(`${API_BASE_URL}/admin/users/${userId}/subscription`, {
+      method: 'PATCH',
+      headers: this.getHeaders(),
+      body: JSON.stringify({ plan, status }),
     });
     return res.json();
   }
@@ -125,10 +127,35 @@ class ApiService {
     return res.json();
   }
 
+  async sendBroadcastNotification(data: {
+    app_name?: string;
+    title: string;
+    body: string;
+    image_url?: string;
+    target: string;
+    target_user_id?: string | null;
+    type: string;
+    delivered_count?: number;
+  }) {
+    const res = await fetch(`${API_BASE_URL}/admin/notifications`, {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  }
+
+  async getBroadcastNotifications(limit = 20): Promise<{ success: boolean; data?: BroadcastNotification[]; error?: { message: string } }> {
+    const res = await fetch(`${API_BASE_URL}/admin/notifications?limit=${limit}`, {
+      headers: this.getHeaders(),
+    });
+    return res.json();
+  }
+
   logout() {
     localStorage.removeItem('whisperledger_access_token');
     localStorage.removeItem('whisperledger_admin_user');
   }
 }
 
-export const api = new ApiService();
+export const api = new AdminApiService();
