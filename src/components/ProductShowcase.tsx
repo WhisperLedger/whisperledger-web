@@ -3,37 +3,71 @@ import { Bell, Home, Mic, Plus, UsersRound, RefreshCw, Check } from 'lucide-reac
 
 type SpaceTab = 'daily' | 'household' | 'recovery';
 
+const TABS: SpaceTab[] = ['daily', 'household', 'recovery'];
+
 export const ProductShowcase: React.FC = () => {
   const [activeTab, setActiveTab] = useState<SpaceTab>('daily');
+  const [isPaused, setIsPaused] = useState(false);
   const [reviewed, setReviewed] = useState(false);
-  const [currentTime, setCurrentTime] = useState(() => {
+  const [is12Hour, setIs12Hour] = useState(false);
+
+  const getLiveTime = (use12Hour: boolean) => {
     const now = new Date();
-    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-  });
+    if (use12Hour) {
+      return now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
+    }
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+
+  const [currentTime, setCurrentTime] = useState(() => getLiveTime(false));
 
   // Keep phone status clock synced to live local time
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date();
-      setCurrentTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
+      setCurrentTime(getLiveTime(is12Hour));
     };
+    updateTime();
     const timer = setInterval(updateTime, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [is12Hour]);
+
+  // Automatic rotation between the 3 core spaces every 4.5 seconds (pauses on user hover)
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setActiveTab((prevTab) => {
+        const nextIndex = (TABS.indexOf(prevTab) + 1) % TABS.length;
+        return TABS[nextIndex];
+      });
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   return (
-    <div className="product-showcase" aria-label="WhisperLedger product preview">
+    <div
+      className="product-showcase"
+      aria-label="WhisperLedger product preview"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="product-orb product-orb-lilac" aria-hidden="true" />
       <div className="product-orb product-orb-mint" aria-hidden="true" />
 
-      {/* Interactive Top Space Switcher */}
+      {/* Interactive Top Space Switcher with Auto-Cycle */}
       <div className="product-showcase-controls" role="tablist" aria-label="WhisperLedger spaces">
         <button
           type="button"
           role="tab"
           aria-selected={activeTab === 'daily'}
-          onClick={() => setActiveTab('daily')}
+          onClick={() => {
+            setActiveTab('daily');
+          }}
           className={activeTab === 'daily' ? 'is-selected' : ''}
+          title="Daily expense & SMS review tracker"
         >
           Daily tracker
         </button>
@@ -41,8 +75,11 @@ export const ProductShowcase: React.FC = () => {
           type="button"
           role="tab"
           aria-selected={activeTab === 'household'}
-          onClick={() => setActiveTab('household')}
+          onClick={() => {
+            setActiveTab('household');
+          }}
           className={activeTab === 'household' ? 'is-selected' : ''}
+          title="Shared household & flat splits"
         >
           Household space
         </button>
@@ -50,8 +87,11 @@ export const ProductShowcase: React.FC = () => {
           type="button"
           role="tab"
           aria-selected={activeTab === 'recovery'}
-          onClick={() => setActiveTab('recovery')}
+          onClick={() => {
+            setActiveTab('recovery');
+          }}
           className={activeTab === 'recovery' ? 'is-selected' : ''}
+          title="Money due back & refunds recovery"
         >
           Money recovery
         </button>
@@ -59,7 +99,9 @@ export const ProductShowcase: React.FC = () => {
 
       {/* Floating Interactive Badge 1: Quick Capture */}
       <aside
-        className="product-float product-float-capture cursor-pointer transition hover:scale-105 active:scale-95"
+        className={`product-float product-float-capture cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 ${
+          activeTab === 'daily' ? 'ring-2 ring-blue-500/40 shadow-lg' : 'opacity-85'
+        }`}
         onClick={() => setActiveTab('daily')}
         title="Switch to Daily Tracker"
       >
@@ -76,8 +118,12 @@ export const ProductShowcase: React.FC = () => {
       <div className="product-phone">
         <div className="product-phone-speaker" />
         <div className="product-screen">
-          {/* Live Status Bar Clock */}
-          <div className="product-status cursor-default select-none">
+          {/* Live Status Bar Clock (Interactive 12h/24h toggle) */}
+          <div
+            className="product-status cursor-pointer select-none transition hover:opacity-75"
+            onClick={() => setIs12Hour(!is12Hour)}
+            title="Live device clock (Click to toggle 12h/24h format)"
+          >
             <span className="font-semibold tracking-tight">{currentTime}</span>
             <span className="text-[7px] tracking-widest opacity-80">5G ● ● ●</span>
           </div>
@@ -256,7 +302,9 @@ export const ProductShowcase: React.FC = () => {
 
       {/* Floating Interactive Badge 2: Household Space */}
       <aside
-        className="product-float product-float-split cursor-pointer transition hover:scale-105 active:scale-95"
+        className={`product-float product-float-split cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 ${
+          activeTab === 'household' ? 'ring-2 ring-emerald-500/40 shadow-lg' : 'opacity-85'
+        }`}
         onClick={() => setActiveTab('household')}
         title="Switch to Household Space"
       >
@@ -271,7 +319,9 @@ export const ProductShowcase: React.FC = () => {
 
       {/* Floating Interactive Badge 3: Money Recovery */}
       <aside
-        className="product-float product-float-refund cursor-pointer transition hover:scale-105 active:scale-95"
+        className={`product-float product-float-refund cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 ${
+          activeTab === 'recovery' ? 'ring-2 ring-amber-500/40 shadow-lg' : 'opacity-85'
+        }`}
         onClick={() => setActiveTab('recovery')}
         title="Switch to Money Recovery"
       >
