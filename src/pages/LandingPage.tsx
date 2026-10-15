@@ -50,25 +50,40 @@ export const LandingPage: React.FC = () => (
     <div className="landing-page relative overflow-hidden bg-[#fbfcff] text-[#101827]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[680px] bg-[radial-gradient(circle_at_74%_24%,rgba(0,102,255,.12),transparent_27%),radial-gradient(circle_at_18%_12%,rgba(139,92,246,.09),transparent_24%)]" aria-hidden="true" />
 
+      {/* Curiosity Announcement Strip */}
+      <div className="relative z-10 border-b border-blue-100 bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-blue-50/90 py-2.5 px-4 text-center text-xs text-slate-700">
+        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 flex-wrap">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0066ff] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            Coming Soon
+          </span>
+          <span className="font-semibold text-slate-900">WhisperLedger for Android is in final invite-only testing.</span>
+          <a href="#notify" className="font-bold text-[#0066ff] underline underline-offset-2 hover:text-blue-700 ml-1">
+            Request your VIP Early Access invite &rarr;
+          </a>
+        </div>
+      </div>
+
       <div>
         {/* Hero Section */}
         <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1.03fr_.97fr] lg:gap-16">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50/80 border border-blue-100/80 px-3.5 py-1 text-xs font-semibold text-[#0066ff] mb-4">
-              <span>Created by Tanmay Agarwal</span>
-              <span className="text-blue-300">•</span>
-              <span>Review-First Ledger</span>
+            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50/90 border border-blue-200/70 px-3.5 py-1.5 text-xs font-semibold text-[#0066ff] mb-5 shadow-xs">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Private Beta • Coming Soon</span>
+              <span className="text-blue-300">|</span>
+              <span className="text-slate-600 font-normal">Created by Tanmay Agarwal</span>
             </div>
             <p className="text-xs font-bold uppercase tracking-[.18em] text-[#0066ff]">WhisperLedger</p>
             <h1 className="mt-6 text-[clamp(2.35rem,6.2vw,5.2rem)] font-semibold leading-[.95] tracking-[-.06em] text-[#101827]">
               Money leaves a trail.<br /><span className="text-[#0066ff]">Make it useful.</span>
             </h1>
             <p className="mt-7 max-w-lg text-lg leading-relaxed text-slate-600 sm:text-xl">
-              WhisperLedger is a review-first expense ledger for everyday spending, shared household costs and money that is still due back—without turning your finances into another full-time task.
+              Most finance apps sell your data, spam loan offers, or demand your bank passwords. We’re building something quietly different: an invite-first, on-device ledger designed for daily Indian spending, shared flat costs, and money owed back.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#notify" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#101827] px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#263246]">
-                Get availability updates <ArrowRight className="h-4 w-4" />
+              <a href="#notify" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#101827] px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#263246] active:scale-98">
+                Request VIP Early Access <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#product" className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300">
                 Explore the product
@@ -81,14 +96,22 @@ export const LandingPage: React.FC = () => (
             </div>
           </div>
           <div id="product" className="relative min-h-[500px] scroll-mt-24 sm:min-h-[590px]">
-            <div className="absolute left-0 top-12 hidden w-40 rounded-2xl border border-white bg-white/90 p-4 shadow-[0_18px_45px_-24px_rgba(15,23,42,.35)] backdrop-blur md:block">
-              <p className="text-[10px] font-bold uppercase tracking-[.13em] text-slate-400">Designed to be</p>
-              <p className="mt-2 text-sm font-semibold leading-snug text-slate-800">Private by default.<br />Useful by choice.</p>
+            {/* Replaced generic 'private by default' pill with an intriguing real preview */}
+            <div className="absolute -left-4 top-12 hidden w-52 rounded-2xl border border-blue-100 bg-white/95 p-4 shadow-[0_20px_50px_-24px_rgba(0,102,255,.3)] backdrop-blur md:block z-10">
+              <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[.14em] text-[#0066ff]">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
+                <span>Coming Soon to Android</span>
+              </div>
+              <p className="mt-2 text-xs font-bold leading-snug text-slate-900">
+                No bank logins.<br />No loan ads.<br />
+                <span className="text-slate-500 font-normal">Everything stays encrypted on your device.</span>
+              </p>
             </div>
             <ProductShowcase />
-            <div className="hidden sm:block absolute bottom-7 right-5 rounded-2xl border border-[#dbe8ff] bg-[#f7faff]/95 px-4 py-3 shadow-[0_18px_45px_-24px_rgba(0,102,255,.32)] backdrop-blur">
-              <p className="text-xs font-bold text-[#005fd6]">One calm view.</p>
-              <p className="mt-1 text-xs text-slate-500 font-medium">Spend, share, follow up.</p>
+            <div className="hidden sm:block absolute bottom-7 right-4 rounded-2xl border border-blue-100 bg-white/95 px-4 py-3 shadow-[0_20px_50px_-24px_rgba(0,102,255,.3)] backdrop-blur z-10">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-[#0066ff]">On-Device Intelligence</p>
+              <p className="mt-0.5 text-xs font-bold text-slate-900">1-Tap Bank SMS Review</p>
+              <p className="text-[11px] text-slate-500">Zero cloud scraping. Zero tracking.</p>
             </div>
           </div>
         </section>
@@ -243,38 +266,41 @@ export const LandingPage: React.FC = () => (
           <div className="overflow-hidden rounded-[2rem] border border-[#d9e6f8] bg-white shadow-[0_24px_70px_-40px_rgba(0,64,160,.28)]">
             <div className="grid lg:grid-cols-[1.15fr_.85fr]">
               <div className="p-8 sm:p-14">
-                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#0066ff]">The point of a ledger</p>
+                <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#0066ff]">
+                  <span className="w-2 h-2 rounded-full bg-[#0066ff] animate-ping" />
+                  Limited Beta Batch 01
+                </div>
                 <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.055em] text-[#101827] sm:text-5xl">
-                  The small details are the ones that add up.
+                  Be the first to experience WhisperLedger.
                 </h2>
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600">
-                  A coffee, an auto-debit, a shared grocery run, a refund that never arrived. WhisperLedger gives each one a place before it becomes another thing you have to remember.
+                  We are handcrafting the Android release with biometric protection, 1-tap SMS review, and zero ads. Join the waitlist to receive your priority invite link the moment Batch 01 opens.
                 </p>
                 <div id="notify" className="scroll-mt-8">
-                  <p className="mt-8 text-sm font-semibold text-slate-800">Get a note when WhisperLedger is ready for you.</p>
+                  <p className="mt-8 text-sm font-semibold text-slate-800">Enter your email for priority early access:</p>
                   <InterestForm />
                 </div>
               </div>
 
-              <div className="flex flex-col justify-between bg-[#f4f8fe] p-8 sm:p-14 border-t lg:border-t-0 lg:border-l border-[#e8edf5]">
+              <div className="flex flex-col justify-between bg-gradient-to-br from-[#f4f8fe] to-[#eaf2fd] p-8 sm:p-14 border-t lg:border-t-0 lg:border-l border-[#e8edf5]">
                 <ShieldCheck className="h-10 w-10 text-[#0066ff]" />
                 <div className="mt-8 lg:mt-0">
-                  <p className="text-xs font-bold uppercase tracking-[.15em] text-slate-500">Built around a few beliefs</p>
+                  <p className="text-xs font-bold uppercase tracking-[.15em] text-slate-500">Early access perks</p>
                   <p className="mt-3 text-xl font-semibold leading-snug tracking-[-.03em] text-[#172033]">
-                    A useful money tool should clarify the day—not ask you to become a finance person.
+                    Quiet, clean finance. No spam calls, no selling your credit score.
                   </p>
-                  <div className="mt-6 space-y-2.5 text-xs text-slate-600">
-                    <div className="flex items-center gap-2">
+                  <div className="mt-6 space-y-3 text-xs text-slate-700 font-medium">
+                    <div className="flex items-center gap-2.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      <span>Every action should be easy to understand</span>
+                      <span>Release 1.0 Candidate for Android</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      <span>Private and shared money deserve different spaces</span>
+                      <span>100% Free Lifetime Tier for Beta Testers</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                      <span>Automation should stay visible and reviewable</span>
+                    <div className="flex items-center gap-2.5">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                      <span>Private APK &amp; Direct Play Store Beta Access</span>
                     </div>
                   </div>
                 </div>
