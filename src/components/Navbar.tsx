@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { Menu, X, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { scrollToWaitlist } from '../utils/scroll';
 
 export const Navbar: React.FC = () => {
@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/70 transition-all">
+      <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
           
           {/* Brand Logo with Official App Icon */}
@@ -38,7 +38,7 @@ export const Navbar: React.FC = () => {
             <img 
               src="/assets/logo.png" 
               alt="WhisperLedger Official Logo" 
-              className="w-9 h-9 rounded-xl object-cover shadow-xs group-hover:scale-105 transition-transform"
+              className="h-9 w-9 rounded-xl object-cover shadow-xs"
             />
             <span className="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-0.5">
               Whisper<span className="text-[#0066FF]">Ledger</span>
@@ -46,22 +46,21 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
             <a href="/#product" className="hover:text-[#0066FF] transition-colors">The product</a>
             <a href="/#features" className="hover:text-[#0066FF] transition-colors">What it solves</a>
-            <a href="/#recovery" className="hover:text-[#0066FF] transition-colors">Privacy</a>
+            <a href="/#privacy" className="hover:text-[#0066FF] transition-colors">Privacy</a>
             <a href="/#faq" className="hover:text-[#0066FF] transition-colors">Questions</a>
           </nav>
 
           {/* Desktop Actions CTA */}
-          <div className="hidden md:flex items-center gap-2.5">
+          <div className="hidden lg:flex items-center gap-2.5">
             <a 
               href="/#notify" 
               onClick={(e) => scrollToWaitlist(e)}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#263246] shadow-sm hover:shadow active:scale-98"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-[#263246]"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Request Early Access</span>
+              <span>Get product updates</span>
             </a>
           </div>
 
@@ -69,7 +68,7 @@ export const Navbar: React.FC = () => {
           <button 
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden inline-flex items-center justify-center p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-100 active:scale-95 transition" 
+            className="lg:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-900"
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileOpen}
           >
@@ -80,16 +79,14 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer (Rendered via React Portal outside of backdrop-blur header) */}
       {mobileOpen && typeof document !== 'undefined' && createPortal(
-        <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
-          {/* Dimmed backdrop */}
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
           <div 
-            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs"
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
 
-          {/* Slide-over panel */}
-          <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-2xl flex flex-col p-6 overflow-y-auto animate-in slide-in-from-right duration-250">
+          <div className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col overflow-y-auto bg-white p-6 shadow-2xl">
             {/* Header in Drawer */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
               <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-3">
@@ -101,7 +98,7 @@ export const Navbar: React.FC = () => {
               <button 
                 type="button"
                 onClick={() => setMobileOpen(false)}
-                className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 active:scale-95 transition"
+                className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
                 aria-label="Close menu"
               >
                 <X className="w-6 h-6" />
@@ -127,11 +124,11 @@ export const Navbar: React.FC = () => {
                 <span className="text-slate-300 text-xs">›</span>
               </a>
               <a 
-                href="/#recovery" 
+                href="/#privacy"
                 onClick={() => setMobileOpen(false)} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
-                <span>Privacy &amp; Offline</span>
+                <span>Privacy</span>
                 <span className="text-slate-300 text-xs">›</span>
               </a>
               <a 
@@ -144,17 +141,6 @@ export const Navbar: React.FC = () => {
               </a>
             </nav>
 
-            {/* Early Access Status card */}
-            <div className="mt-auto rounded-2xl bg-gradient-to-br from-blue-50/90 to-indigo-50/80 border border-blue-100 p-4 mb-4">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#0066FF] uppercase tracking-wider">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Invite-Only Early Access</span>
-              </div>
-              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
-                Handcrafted for Android. No bank logins, no loan ads, and 100% on-device encryption.
-              </p>
-            </div>
-
             {/* Action CTA */}
             <div className="pt-2">
               <a 
@@ -163,9 +149,9 @@ export const Navbar: React.FC = () => {
                   setMobileOpen(false);
                   scrollToWaitlist(e);
                 }} 
-                className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#0066FF] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0052CC] active:scale-98 transition"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0066FF] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/25 transition-colors hover:bg-[#0052CC]"
               >
-                <span>Request VIP Early Access</span>
+                <span>Get product updates</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
