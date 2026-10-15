@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Smoothly scrolls to the VIP Early Access waitlist section,
+ * Smoothly scrolls to the product-updates form,
  * vertically centering the entire card in the viewport on desktop
  * or positioning it cleanly below the fixed navbar on mobile.
  */

@@ -2,8 +2,8 @@ import { FormEvent, useState } from 'react';
 import { ArrowRight, CheckCircle2, LoaderCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const publicApiBaseUrl = import.meta.env.VITE_PUBLIC_API_URL || import.meta.env.VITE_API_URL || 'https://whisperledger-api-dozavowbya-el.a.run.app/api/v1';
-const interestApiUrl = `${publicApiBaseUrl.replace(/\/$/, '')}/interest`;
+const publicApiBaseUrl = import.meta.env.VITE_PUBLIC_API_URL;
+const interestApiUrl = publicApiBaseUrl ? `${publicApiBaseUrl.replace(/\/$/, '')}/interest` : null;
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -24,8 +24,14 @@ export const InterestForm = () => {
 
     setState('submitting');
     setMessage('');
+    if (!interestApiUrl) {
+      setState('error');
+      setMessage('Updates are not available right now. Please try again shortly.');
+      return;
+    }
+
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 10_000);
+    const timeout = window.setTimeout(() => controller.abort(), 20_000);
 
     try {
       const response = await fetch(interestApiUrl, {
@@ -36,7 +42,10 @@ export const InterestForm = () => {
       });
       const result = await response.json().catch(() => null);
       if (!response.ok || !result?.success) {
-        throw new Error(result?.error?.message || 'Unable to save your request right now.');
+        if (response.status >= 500 || response.status === 404) {
+          throw new Error('Updates are not available right now. Please try again shortly.');
+        }
+        throw new Error(result?.error?.message || 'We could not save your request. Please check your email and try again.');
       }
 
       setState('success');
@@ -45,7 +54,15 @@ export const InterestForm = () => {
       setConsent(false);
     } catch (error) {
       setState('error');
-      setMessage(error instanceof Error ? error.message : 'Unable to save your request right now.');
+      setMessage(
+        error instanceof DOMException && error.name === 'AbortError'
+          ? 'This is taking longer than expected. Please try again shortly.'
+          : error instanceof TypeError
+            ? 'Updates are not available right now. Please check your connection and try again.'
+            : error instanceof Error
+              ? error.message
+              : 'Updates are not available right now. Please try again shortly.',
+      );
     } finally {
       window.clearTimeout(timeout);
     }

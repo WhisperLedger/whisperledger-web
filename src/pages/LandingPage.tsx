@@ -39,12 +39,11 @@ const rhythmSteps = [
 
 const faqs = [
   ['What is WhisperLedger?', 'WhisperLedger is a review-first daily expense tracker and household financial ledger designed for India. It captures everyday INR spending, simplifies shared household splits, and follows up on refunds and money owed—without ads, intrusive bank logins, or spreadsheets.'],
-  ['Who created WhisperLedger?', 'WhisperLedger was conceived and created by Tanmay Agarwal as an offline-ready, privacy-respecting financial ledger built specifically for Indian expense and household patterns.'],
-  ['What is the prime goal of WhisperLedger?', 'The primary goal of WhisperLedger is to help you maintain a clean, frictionless record of where your money moves, eliminate group-chat math for shared flat expenses, and ensure forgotten refunds are recovered—all while keeping your financial data completely private and on-device.'],
-  ['When will WhisperLedger be available?', 'We are preparing the Android release with a focus on reliability, privacy and a clear first-run experience. Availability will be announced here when it is ready.'],
+  ['How does it keep spending organised?', 'It keeps personal spending, shared household costs, and money due back in focused spaces so the context is easy to return to.'],
+  ['When can I use it?', 'Leave your email address and we will share a product availability update when there is something meaningful to announce.'],
   ['Will I need to enable SMS permissions?', 'No. Manual entry and voice logging work without SMS permissions. If you choose SMS capture, you can set it to automatic handling or manual approval.'],
   ['Does WhisperLedger need my bank login?', 'No. WhisperLedger is not a bank and does not ask for your bank username, password or account credentials to keep a ledger.'],
-  ['Who is it for?', 'It is for people who want a clear record of their own spending, and for households that need a calmer way to track shared costs and balances.'],
+  ['How are permissions handled?', 'Manual entry works without SMS permissions. You choose whether to use SMS capture, voice input, notifications, or optional sync.'],
 ];
 
 export const LandingPage: React.FC = () => {
@@ -61,24 +60,6 @@ export const LandingPage: React.FC = () => {
     <div className="landing-page relative overflow-hidden bg-[#fbfcff] text-[#101827]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[680px] bg-[radial-gradient(circle_at_74%_24%,rgba(0,102,255,.12),transparent_27%),radial-gradient(circle_at_18%_12%,rgba(139,92,246,.09),transparent_24%)]" aria-hidden="true" />
 
-      {/* Curiosity Announcement Strip */}
-      <div className="relative z-10 border-b border-blue-100 bg-gradient-to-r from-blue-50/90 via-indigo-50/80 to-blue-50/90 py-2.5 px-4 text-center text-xs text-slate-700">
-        <div className="mx-auto flex max-w-6xl items-center justify-center gap-2 flex-wrap">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0066ff] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            Coming Soon
-          </span>
-          <span className="font-semibold text-slate-900">WhisperLedger for Android is in final invite-only testing.</span>
-          <a 
-            href="#notify" 
-            onClick={(e) => scrollToWaitlist(e)}
-            className="font-bold text-[#0066ff] underline underline-offset-2 hover:text-blue-700 ml-1"
-          >
-            Request your VIP Early Access invite &rarr;
-          </a>
-        </div>
-      </div>
-
       <div>
         {/* Hero Section */}
         <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1.03fr_.97fr] lg:gap-16">
@@ -88,18 +69,18 @@ export const LandingPage: React.FC = () => {
               Money leaves a trail.<br /><span className="text-[#0066ff]">Make it useful.</span>
             </h1>
             <p className="mt-7 max-w-lg text-lg leading-relaxed text-slate-600 sm:text-xl">
-              Most finance apps sell your data, spam loan offers, or demand your bank passwords. We’re building something quietly different: an invite-first, on-device ledger designed for daily Indian spending, shared flat costs, and money owed back.
+              A considered expense ledger for daily Indian spending, shared household costs, and money that still needs to find its way back.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a 
                 href="#notify" 
                 onClick={(e) => scrollToWaitlist(e)}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#101827] px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#263246] active:scale-98"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#101827] px-6 py-3.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-[#263246]"
               >
-                Request VIP Early Access <ArrowRight className="h-4 w-4" />
+                Get product updates <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#product" className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300">
-                Explore the product
+                See how it works
               </a>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-xs font-medium text-slate-500">
@@ -196,18 +177,18 @@ export const LandingPage: React.FC = () => {
                 Use the tools you need. Leave the rest off.
               </h2>
               <p className="mt-5 text-sm leading-relaxed text-slate-600 sm:text-base">
-                SMS capture, voice input, notifications and sync are optional. WhisperLedger explains what each permission enables before you decide.
+                SMS capture, voice input, notifications and optional sync are each explained before you decide. You choose which tools to enable.
               </p>
             </div>
 
             <div className="mt-8 pt-6 border-t border-[#d5e4fc] grid grid-cols-2 gap-4 text-xs font-semibold text-slate-700">
               <div className="rounded-xl bg-white/70 p-3.5 border border-white">
-                <span className="block text-[#0066ff] font-bold">100% Local</span>
-                <span className="text-[11px] text-slate-500 font-normal">On-device biometric encryption</span>
+                <span className="block text-[#0066ff] font-bold">Permission-led</span>
+                <span className="text-[11px] text-slate-500 font-normal">Choose the tools you want to use</span>
               </div>
               <div className="rounded-xl bg-white/70 p-3.5 border border-white">
-                <span className="block text-[#0066ff] font-bold">Zero Bank Logins</span>
-                <span className="text-[11px] text-slate-500 font-normal">No credentials ever required</span>
+                <span className="block text-[#0066ff] font-bold">No bank login</span>
+                <span className="text-[11px] text-slate-500 font-normal">No bank username or password required</span>
               </div>
             </div>
           </div>
@@ -259,81 +240,51 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        <section id="notify" className="scroll-mt-24 sm:scroll-mt-32 mx-auto max-w-6xl px-5 pb-24 sm:px-8 sm:pb-32">
+        <section id="notify" className="scroll-mt-24 sm:scroll-mt-32 mx-auto max-w-4xl px-5 pb-20 sm:px-8 sm:pb-28">
           <div className="overflow-hidden rounded-[2rem] border border-[#d9e6f8] bg-white shadow-[0_24px_70px_-40px_rgba(0,64,160,.28)]">
-            <div className="grid lg:grid-cols-[1.15fr_.85fr]">
-              <div className="p-8 sm:p-14">
-                <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#0066ff]">
-                  <span className="w-2 h-2 rounded-full bg-[#0066ff] animate-ping" />
-                  Limited Beta Batch 01
-                </div>
-                <h2 className="mt-5 text-4xl font-semibold leading-[1.02] tracking-[-.055em] text-[#101827] sm:text-5xl">
-                  Be the first to experience WhisperLedger.
-                </h2>
-                <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600">
-                  We are handcrafting the Android release with biometric protection, 1-tap SMS review, and zero ads. Join the waitlist to receive your priority invite link the moment Batch 01 opens.
-                </p>
-                <div>
-                  <p className="mt-8 text-sm font-semibold text-slate-800">Enter your email for priority early access:</p>
-                  <InterestForm />
-                </div>
-              </div>
-
-              <div className="flex flex-col justify-between bg-gradient-to-br from-[#f4f8fe] to-[#eaf2fd] p-8 sm:p-14 border-t lg:border-t-0 lg:border-l border-[#e8edf5]">
-                <ShieldCheck className="h-10 w-10 text-[#0066ff]" />
-                <div className="mt-8 lg:mt-0">
-                  <p className="text-xs font-bold uppercase tracking-[.15em] text-slate-500">Early access perks</p>
-                  <p className="mt-3 text-xl font-semibold leading-snug tracking-[-.03em] text-[#172033]">
-                    Quiet, clean finance. No spam calls, no selling your credit score.
-                  </p>
-                  <div className="mt-6 space-y-3 text-xs text-slate-700 font-medium">
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      <span>Release 1.0 Candidate for Android</span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      <span>100% Free Lifetime Tier for Beta Testers</span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                      <span>Private APK &amp; Direct Play Store Beta Access</span>
-                    </div>
-                  </div>
-                </div>
+            <div className="p-8 sm:p-12 lg:p-14">
+              <p className="text-xs font-bold uppercase tracking-[.16em] text-[#0066ff]">Stay in the loop</p>
+              <h2 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.02] tracking-[-.055em] text-[#101827] sm:text-5xl">
+                Get a note when there is something worth sharing.
+              </h2>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600">
+                Leave your email address for meaningful product availability updates. No account is created.
+              </p>
+              <div>
+                <p className="mt-8 text-sm font-semibold text-slate-800">Email address</p>
+                <InterestForm />
               </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ Section - 2-Column Balanced Desktop Layout */}
-        <section id="faq" className="mx-auto max-w-6xl px-5 pb-24 sm:px-8 sm:pb-32">
-          <div className="grid lg:grid-cols-[380px_1fr] lg:gap-16 items-start">
+        <section id="faq" className="mx-auto max-w-5xl px-5 pb-20 sm:px-8 sm:pb-28">
+          <div className="grid gap-10 lg:grid-cols-[300px_1fr] lg:gap-14 lg:items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="text-xs font-bold uppercase tracking-[.16em] text-[#0066ff]">Questions, answered</p>
+              <p className="text-xs font-bold uppercase tracking-[.16em] text-[#0066ff]">Questions</p>
               <h2 className="mt-4 text-3xl font-semibold tracking-[-.055em] text-[#101827] sm:text-4xl lg:text-5xl">
-                The important things.
+                A few useful details.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-slate-600">
-                Everything you need to know about WhisperLedger, local data storage, and how your information is kept private.
+                Clear answers about the product, its permissions, and your data choices.
               </p>
 
-              <div className="mt-8 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs">
+              <div className="mt-7 rounded-2xl border border-slate-200/80 bg-white p-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Still have questions?</p>
-                <p className="mt-2 text-sm font-semibold text-slate-800">We're here to answer anything.</p>
+                <p className="mt-2 text-sm font-semibold text-slate-800">We’ll help you find the right answer.</p>
                 <a
                   href="mailto:support@whisperledger.in"
-                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-slate-800 transition"
+                  className="mt-4 inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-slate-800 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-slate-300"
                 >
-                  Contact founder &amp; team →
+                  Contact support →
                 </a>
               </div>
             </div>
 
-            <div className="mt-10 lg:mt-0 divide-y divide-slate-200 border-t border-slate-200 lg:border-t-0">
+            <div className="divide-y divide-slate-200 border-y border-slate-200">
               {faqs.map(([question, answer]) => (
-                <details key={question} className="group py-5.5 first:pt-0">
-                  <summary className="flex cursor-pointer list-none justify-between gap-6 text-base font-semibold text-slate-900 hover:text-[#0066ff] transition-colors">
+                <details key={question} className="group py-5 first:pt-5">
+                  <summary className="flex cursor-pointer list-none justify-between gap-6 text-[15px] font-semibold text-slate-900 hover:text-[#0066ff] transition-colors focus:outline-none">
                     {question}
                     <span className="text-xl font-normal text-[#0066ff] transition-transform duration-200 group-open:rotate-45 select-none shrink-0">+</span>
                   </summary>
