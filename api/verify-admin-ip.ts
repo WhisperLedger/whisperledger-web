@@ -1,4 +1,6 @@
 // Vercel Serverless Function to verify client IP and emergency admin passkey
+declare const process: any;
+
 export default async function handler(req: any, res: any) {
   // Extract client IP from Vercel proxy headers
   const forwarded = req.headers['x-forwarded-for'] || req.headers['x-real-ip'];
