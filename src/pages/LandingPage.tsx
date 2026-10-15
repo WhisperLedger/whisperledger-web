@@ -71,8 +71,6 @@ export const LandingPage: React.FC = () => (
             <div className="inline-flex items-center gap-2 rounded-full bg-blue-50/90 border border-blue-200/70 px-3.5 py-1.5 text-xs font-semibold text-[#0066ff] mb-5 shadow-xs">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Private Beta • Coming Soon</span>
-              <span className="text-blue-300">|</span>
-              <span className="text-slate-600 font-normal">Created by Tanmay Agarwal</span>
             </div>
             <p className="text-xs font-bold uppercase tracking-[.18em] text-[#0066ff]">WhisperLedger</p>
             <h1 className="mt-6 text-[clamp(2.35rem,6.2vw,5.2rem)] font-semibold leading-[.95] tracking-[-.06em] text-[#101827]">
