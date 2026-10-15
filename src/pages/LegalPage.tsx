@@ -28,20 +28,20 @@ export const LegalPage: React.FC = () => {
   const page = sections[kind];
 
   return (
-    <main className="max-w-3xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
-      <Link to="/" className="text-sm font-bold text-primary hover:underline">← Back to WhisperLedger</Link>
-      <p className="mt-10 text-xs font-bold uppercase tracking-widest text-primary">Last updated: October 14, 2026</p>
-      <h1 className="mt-3 text-4xl sm:text-5xl font-black text-dark tracking-tight">{page.title}</h1>
-      <p className="mt-6 text-base leading-relaxed text-slateBody">{page.intro}</p>
-      <div className="mt-12 space-y-8">
+    <div className="max-w-3xl mx-auto px-5 sm:px-8 py-12 sm:py-16">
+      <Link to="/" className="text-sm font-bold text-[#0066FF] hover:underline">← Back to WhisperLedger</Link>
+      <p className="mt-8 text-xs font-bold uppercase tracking-widest text-[#0066FF]">Last updated: October 14, 2026</p>
+      <h1 className="mt-3 text-3xl sm:text-5xl font-black text-[#101827] tracking-tight">{page.title}</h1>
+      <p className="mt-5 text-base leading-relaxed text-slate-600">{page.intro}</p>
+      <div className="mt-10 space-y-6">
         {page.items.map(([heading, body]) => (
-          <section key={heading} className="super-card p-6">
-            <h2 className="text-lg font-extrabold text-dark">{heading}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slateBody">{body}</p>
+          <section key={heading} className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
+            <h2 className="text-lg font-bold text-[#101827]">{heading}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p>
           </section>
         ))}
       </div>
-      <p className="mt-12 text-sm text-slate-500">Questions? <a className="text-primary font-bold hover:underline" href="mailto:support@whisperledger.in">Contact support</a>.</p>
-    </main>
+      <p className="mt-10 text-sm text-slate-500">Questions? <a className="text-[#0066FF] font-bold hover:underline" href="mailto:support@whisperledger.in">Contact support</a>.</p>
+    </div>
   );
 };

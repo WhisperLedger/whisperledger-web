@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { scrollToWaitlist } from '../utils/scroll';
 
 export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   // Prevent background scrolling while the mobile menu is open
   useEffect(() => {
@@ -28,6 +29,19 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const handleNavAnchor = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    if (location.pathname === '/' || location.pathname === '') {
+      e.preventDefault();
+      const id = hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', `#${id}`);
+      }
+      setMobileOpen(false);
+    }
+  };
+
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
@@ -47,10 +61,10 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
-            <a href="/#product" className="hover:text-[#0066FF] transition-colors">The product</a>
-            <a href="/#features" className="hover:text-[#0066FF] transition-colors">What it solves</a>
-            <a href="/#privacy" className="hover:text-[#0066FF] transition-colors">Privacy</a>
-            <a href="/#faq" className="hover:text-[#0066FF] transition-colors">Questions</a>
+            <a href="/#product" onClick={(e) => handleNavAnchor(e, '#product')} className="hover:text-[#0066FF] transition-colors">The product</a>
+            <a href="/#features" onClick={(e) => handleNavAnchor(e, '#features')} className="hover:text-[#0066FF] transition-colors">What it solves</a>
+            <a href="/#privacy" onClick={(e) => handleNavAnchor(e, '#privacy')} className="hover:text-[#0066FF] transition-colors">Privacy</a>
+            <a href="/#faq" onClick={(e) => handleNavAnchor(e, '#faq')} className="hover:text-[#0066FF] transition-colors">Questions</a>
           </nav>
 
           {/* Desktop Actions CTA */}
@@ -60,7 +74,7 @@ export const Navbar: React.FC = () => {
               onClick={(e) => scrollToWaitlist(e)}
               className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-[#263246]"
             >
-              <span>Get product updates</span>
+              <span>Request Early Access</span>
             </a>
           </div>
 
@@ -109,7 +123,7 @@ export const Navbar: React.FC = () => {
             <nav className="flex flex-col gap-2 py-6 text-base font-semibold text-slate-800">
               <a 
                 href="/#product" 
-                onClick={() => setMobileOpen(false)} 
+                onClick={(e) => handleNavAnchor(e, '#product')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>The product</span>
@@ -117,7 +131,7 @@ export const Navbar: React.FC = () => {
               </a>
               <a 
                 href="/#features" 
-                onClick={() => setMobileOpen(false)} 
+                onClick={(e) => handleNavAnchor(e, '#features')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>What it solves</span>
@@ -125,7 +139,7 @@ export const Navbar: React.FC = () => {
               </a>
               <a 
                 href="/#privacy"
-                onClick={() => setMobileOpen(false)} 
+                onClick={(e) => handleNavAnchor(e, '#privacy')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>Privacy</span>
@@ -133,13 +147,24 @@ export const Navbar: React.FC = () => {
               </a>
               <a 
                 href="/#faq" 
-                onClick={() => setMobileOpen(false)} 
+                onClick={(e) => handleNavAnchor(e, '#faq')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>Questions</span>
                 <span className="text-slate-300 text-xs">›</span>
               </a>
             </nav>
+
+            {/* Early Access Status card */}
+            <div className="mt-auto rounded-2xl bg-gradient-to-br from-blue-50/90 to-indigo-50/80 border border-blue-100 p-4 mb-4">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#0066FF] uppercase tracking-wider">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Invite-Only Early Access</span>
+              </div>
+              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
+                Handcrafted for Android. No bank logins, no loan ads, and 100% on-device encryption.
+              </p>
+            </div>
 
             {/* Action CTA */}
             <div className="pt-2">
@@ -149,9 +174,9 @@ export const Navbar: React.FC = () => {
                   setMobileOpen(false);
                   scrollToWaitlist(e);
                 }} 
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#0066FF] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/25 transition-colors hover:bg-[#0052CC]"
+                className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#0066FF] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0052CC] active:scale-98 transition"
               >
-                <span>Get product updates</span>
+                <span>Request VIP Early Access</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
