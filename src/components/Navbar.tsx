@@ -56,9 +56,10 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-2.5">
             <a 
               href="/#notify" 
-              className="inline-flex items-center rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#263246] shadow-sm hover:shadow active:scale-98"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#263246] shadow-sm hover:shadow active:scale-98"
             >
-              <span>Get availability updates</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Request Early Access</span>
             </a>
           </div>
 
@@ -141,14 +142,14 @@ export const Navbar: React.FC = () => {
               </a>
             </nav>
 
-            {/* Privacy highlights card */}
-            <div className="mt-auto rounded-2xl bg-slate-50 border border-slate-100 p-4 mb-4">
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-800 uppercase tracking-wider">
-                <ShieldCheck className="w-4 h-4 text-[#0066FF]" />
-                <span>Private by Default</span>
+            {/* Early Access Status card */}
+            <div className="mt-auto rounded-2xl bg-gradient-to-br from-blue-50/90 to-indigo-50/80 border border-blue-100 p-4 mb-4">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#0066FF] uppercase tracking-wider">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Private Beta • Coming Soon</span>
               </div>
-              <p className="mt-1.5 text-xs text-slate-500 leading-relaxed">
-                Biometric-protected and offline-ready. Built specifically for INR expenses.
+              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
+                Handcrafted for Android. No bank logins, no loan ads, and 100% on-device encryption.
               </p>
             </div>
 
@@ -159,7 +160,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setMobileOpen(false)} 
                 className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#0066FF] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0052CC] active:scale-98 transition"
               >
-                <span>Get Availability Updates</span>
+                <span>Request VIP Early Access</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
