@@ -1,0 +1,21 @@
+{
+  "name": "WhisperLedger",
+  "short_name": "WhisperLedger",
+  "description": "Review-first daily expense tracking and smart household ledger built for India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#0066FF",
+  "icons": [
+    {
+      "src": "/assets/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
