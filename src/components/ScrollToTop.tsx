@@ -3,22 +3,17 @@ import { useLocation } from 'react-router-dom';
 
 /**
  * Automatically scrolls window to top on route transitions,
- * or smooth scrolls to target anchor if hash is present.
+ * and sanitizes any '#' fragment from the URL bar to keep URLs clean.
  */
 export const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!hash) {
-      window.scrollTo(0, 0);
-    } else {
-      const id = hash.replace('#', '');
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+    window.scrollTo(0, 0);
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
     }
-  }, [pathname, hash]);
+  }, [pathname]);
 
   return null;
 };

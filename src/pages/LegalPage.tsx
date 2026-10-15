@@ -29,19 +29,21 @@ export const LegalPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-5 sm:px-8 py-12 sm:py-16">
-      <Link to="/" className="text-sm font-bold text-[#0066FF] hover:underline">← Back to WhisperLedger</Link>
-      <p className="mt-8 text-xs font-bold uppercase tracking-widest text-[#0066FF]">Last updated: October 14, 2026</p>
-      <h1 className="mt-3 text-3xl sm:text-5xl font-black text-[#101827] tracking-tight">{page.title}</h1>
-      <p className="mt-5 text-base leading-relaxed text-slate-600">{page.intro}</p>
-      <div className="mt-10 space-y-6">
+      <Link to="/" className="text-sm font-semibold text-[#0066FF] hover:underline underline-offset-4">← Back to WhisperLedger</Link>
+      <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#0066FF]">
+        Last updated: October 14, 2026
+      </div>
+      <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-bold text-[#101827] tracking-tight">{page.title}</h1>
+      <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600 font-normal">{page.intro}</p>
+      <div className="mt-10 space-y-5">
         {page.items.map(([heading, body]) => (
-          <section key={heading} className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-[#101827]">{heading}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p>
+          <section key={heading} className="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs">
+            <h2 className="text-lg font-bold text-[#101827] tracking-tight">{heading}</h2>
+            <p className="mt-2 text-sm sm:text-base leading-relaxed text-slate-600 font-normal">{body}</p>
           </section>
         ))}
       </div>
-      <p className="mt-10 text-sm text-slate-500">Questions? <a className="text-[#0066FF] font-bold hover:underline" href="mailto:support@whisperledger.in">Contact support</a>.</p>
+      <p className="mt-10 text-sm text-slate-500">Questions? <a className="text-[#0066FF] font-semibold hover:underline" href="mailto:support@whisperledger.in">Contact support</a>.</p>
     </div>
   );
 };

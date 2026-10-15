@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
-import { scrollToWaitlist } from '../utils/scroll';
+import { scrollToSection, scrollToWaitlist } from '../utils/scroll';
 
 export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Prevent background scrolling while the mobile menu is open
   useEffect(() => {
@@ -29,26 +30,26 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleNavAnchor = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
-    if (location.pathname === '/' || location.pathname === '') {
-      e.preventDefault();
-      const id = hash.replace('#', '');
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-        window.history.pushState(null, '', `#${id}`);
-      }
-      setMobileOpen(false);
-    }
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    setMobileOpen(false);
+    scrollToSection(e, sectionId, navigate, location.pathname);
   };
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/95 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
           
           {/* Brand Logo with Official App Icon */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" onClick={(e) => {
+            if (location.pathname === '/' || location.pathname === '') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (window.location.hash) {
+                window.history.replaceState(null, '', window.location.pathname);
+              }
+            }
+          }} className="flex items-center gap-3 group">
             <img 
               src="/assets/logo.png" 
               alt="WhisperLedger Official Logo" 
@@ -59,23 +60,50 @@ export const Navbar: React.FC = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
-            <a href="/#product" onClick={(e) => handleNavAnchor(e, '#product')} className="hover:text-[#0066FF] transition-colors">The product</a>
-            <a href="/#features" onClick={(e) => handleNavAnchor(e, '#features')} className="hover:text-[#0066FF] transition-colors">What it solves</a>
-            <a href="/#privacy" onClick={(e) => handleNavAnchor(e, '#privacy')} className="hover:text-[#0066FF] transition-colors">Privacy</a>
-            <a href="/#faq" onClick={(e) => handleNavAnchor(e, '#faq')} className="hover:text-[#0066FF] transition-colors">Questions</a>
+          {/* Desktop Navigation Links (Hash-free traversal) */}
+          <nav className="hidden lg:flex items-center gap-8 text-[14px] font-semibold text-slate-600">
+            <a 
+              href="#product" 
+              onClick={(e) => handleNavClick(e, 'product')} 
+              className="hover:text-[#0066FF] transition-colors py-1"
+            >
+              The product
+            </a>
+            <a 
+              href="#features" 
+              onClick={(e) => handleNavClick(e, 'features')} 
+              className="hover:text-[#0066FF] transition-colors py-1"
+            >
+              What it solves
+            </a>
+            <a 
+              href="#privacy" 
+              onClick={(e) => handleNavClick(e, 'privacy')} 
+              className="hover:text-[#0066FF] transition-colors py-1"
+            >
+              Privacy
+            </a>
+            <a 
+              href="#faq" 
+              onClick={(e) => handleNavClick(e, 'faq')} 
+              className="hover:text-[#0066FF] transition-colors py-1"
+            >
+              Questions
+            </a>
           </nav>
 
           {/* Desktop Actions CTA */}
           <div className="hidden lg:flex items-center gap-2.5">
-            <a 
-              href="/#notify" 
-              onClick={(e) => scrollToWaitlist(e)}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-[#263246]"
+            <button 
+              type="button"
+              onClick={(e) => {
+                scrollToWaitlist(e, navigate, location.pathname);
+              }}
+              className="inline-flex items-center gap-2 rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white shadow-xs transition hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
             >
               <span>Request Early Access</span>
-            </a>
+              <ArrowRight className="w-3.5 h-3.5 opacity-80" />
+            </button>
           </div>
 
           {/* Mobile Hamburger Button */}
@@ -91,7 +119,7 @@ export const Navbar: React.FC = () => {
         </div>
       </header>
 
-      {/* Mobile Drawer (Rendered via React Portal outside of backdrop-blur header) */}
+      {/* Mobile Drawer (Rendered via React Portal) */}
       {mobileOpen && typeof document !== 'undefined' && createPortal(
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
           <div 
@@ -103,9 +131,22 @@ export const Navbar: React.FC = () => {
           <div className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col overflow-y-auto bg-white p-6 shadow-2xl">
             {/* Header in Drawer */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-3">
+              <Link 
+                to="/" 
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  if (location.pathname === '/' || location.pathname === '') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (window.location.hash) {
+                      window.history.replaceState(null, '', window.location.pathname);
+                    }
+                  }
+                }} 
+                className="flex items-center gap-3"
+              >
                 <img src="/assets/logo.png" alt="WhisperLedger" className="w-9 h-9 rounded-xl object-cover shadow-xs" />
-                <span className="font-extrabold text-slate-900 text-lg">
+                <span className="font-bold text-slate-900 text-lg tracking-tight">
                   Whisper<span className="text-[#0066FF]">Ledger</span>
                 </span>
               </Link>
@@ -120,38 +161,38 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Nav items */}
-            <nav className="flex flex-col gap-2 py-6 text-base font-semibold text-slate-800">
+            <nav className="flex flex-col gap-1.5 py-6 text-base font-semibold text-slate-800">
               <a 
-                href="/#product" 
-                onClick={(e) => handleNavAnchor(e, '#product')} 
+                href="#product" 
+                onClick={(e) => handleNavClick(e, 'product')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>The product</span>
-                <span className="text-slate-300 text-xs">›</span>
+                <span className="text-slate-400 text-xs">›</span>
               </a>
               <a 
-                href="/#features" 
-                onClick={(e) => handleNavAnchor(e, '#features')} 
+                href="#features" 
+                onClick={(e) => handleNavClick(e, 'features')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>What it solves</span>
-                <span className="text-slate-300 text-xs">›</span>
+                <span className="text-slate-400 text-xs">›</span>
               </a>
               <a 
-                href="/#privacy"
-                onClick={(e) => handleNavAnchor(e, '#privacy')} 
+                href="#privacy" 
+                onClick={(e) => handleNavClick(e, 'privacy')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>Privacy</span>
-                <span className="text-slate-300 text-xs">›</span>
+                <span className="text-slate-400 text-xs">›</span>
               </a>
               <a 
-                href="/#faq" 
-                onClick={(e) => handleNavAnchor(e, '#faq')} 
+                href="#faq" 
+                onClick={(e) => handleNavClick(e, 'faq')} 
                 className="flex items-center justify-between py-3 px-3.5 rounded-xl text-slate-800 hover:bg-slate-50 hover:text-[#0066FF] active:bg-blue-50 transition"
               >
                 <span>Questions</span>
-                <span className="text-slate-300 text-xs">›</span>
+                <span className="text-slate-400 text-xs">›</span>
               </a>
             </nav>
 
@@ -161,24 +202,24 @@ export const Navbar: React.FC = () => {
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Invite-Only Early Access</span>
               </div>
-              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
+              <p className="mt-1.5 text-xs text-slate-600 leading-relaxed font-normal">
                 Handcrafted for Android. No bank logins, no loan ads, and 100% on-device encryption.
               </p>
             </div>
 
             {/* Action CTA */}
             <div className="pt-2">
-              <a 
-                href="/#notify" 
+              <button 
+                type="button"
                 onClick={(e) => {
                   setMobileOpen(false);
-                  scrollToWaitlist(e);
+                  scrollToWaitlist(e, navigate, location.pathname);
                 }} 
                 className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#0066FF] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0052CC] active:scale-98 transition"
               >
                 <span>Request VIP Early Access</span>
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </button>
             </div>
           </div>
         </div>,
