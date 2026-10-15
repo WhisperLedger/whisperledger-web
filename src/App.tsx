@@ -5,6 +5,8 @@ import { Footer } from './components/Footer';
 import { LandingPage } from './pages/LandingPage';
 import { LegalPage } from './pages/LegalPage';
 
+import { AdminAccessGuard } from './components/AdminAccessGuard';
+
 const AdminDashboard = lazy(() =>
   import('./pages/admin/AdminDashboard').then((m) => ({ default: m.AdminDashboard }))
 );
@@ -56,9 +58,23 @@ export const App: React.FC = () => (
           }
         />
 
-        {/* Dedicated Admin Operations Console */}
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+        {/* Dedicated Admin Operations Console - Protected by Selective IP & Passkey Guard */}
+        <Route
+          path="/admin"
+          element={
+            <AdminAccessGuard>
+              <AdminDashboard />
+            </AdminAccessGuard>
+          }
+        />
+        <Route
+          path="/admin/login"
+          element={
+            <AdminAccessGuard>
+              <AdminLogin />
+            </AdminAccessGuard>
+          }
+        />
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
