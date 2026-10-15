@@ -201,77 +201,72 @@
       }
     </script>
   </head>
-  <body class="antialiased selection:bg-[#4D43FE] selection:text-white font-sans bg-[#0F172A] text-slate-100">
+  <body class="antialiased selection:bg-[#0066FF] selection:text-white font-sans bg-[#fbfcff] text-[#101827]">
     <div id="root">
-      <!-- Semantic crawlable fallback for search engine bots (Googlebot, Bingbot, Crawlers) -->
-      <header style="padding: 24px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <img src="/assets/logo.png" alt="WhisperLedger Logo" width="40" height="40" style="border-radius: 8px;" />
-          <span style="font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">WhisperLedger</span>
-        </div>
-        <nav>
-          <a href="#features" style="color: #94A3B8; text-decoration: none; margin-right: 20px; font-weight: 600;">Features</a>
-          <a href="#early-access" style="color: #6366F1; text-decoration: none; font-weight: 700;">Early Access</a>
-        </nav>
-      </header>
+      <!-- Semantic crawlable fallback for search engine bots & instant seamless initial render (zero black screen flash) -->
+      <div style="background-color: #fbfcff; color: #101827; min-height: 100vh; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;">
+        <header style="border-bottom: 1px solid #e2e8f0; background: #ffffff; padding: 0 24px; height: 72px; display: flex; align-items: center; justify-content: space-between; max-width: 1152px; margin: 0 auto;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="/assets/logo.png" alt="WhisperLedger" width="36" height="36" style="border-radius: 12px; object-fit: cover;" />
+            <span style="font-size: 18px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em;">Whisper<span style="color: #0066FF;">Ledger</span></span>
+          </div>
+          <nav style="display: flex; gap: 20px; font-size: 14px; font-weight: 600; color: #475569;">
+            <a href="/#product" style="color: #475569; text-decoration: none;">The product</a>
+            <a href="/#features" style="color: #475569; text-decoration: none;">What it solves</a>
+            <a href="/#faq" style="color: #475569; text-decoration: none;">Questions</a>
+          </nav>
+        </header>
 
-      <main style="max-width: 900px; margin: 40px auto; padding: 0 24px; text-align: center;">
-        <h1 style="font-size: 42px; font-weight: 800; line-height: 1.15; color: #ffffff; margin-bottom: 16px;">
-          Review-First Daily Expense Tracking &amp; Smart Ledger
-        </h1>
-        <p style="font-size: 20px; color: #94A3B8; line-height: 1.6; margin-bottom: 32px;">
-          Record everyday spending, keep shared household costs clear, and follow money still due back—without spreadsheet overhead. Purpose-built for INR transactions.
-        </p>
+        <main style="max-width: 1152px; margin: 0 auto; padding: 60px 24px 80px;">
+          <div style="max-width: 640px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; border-radius: 9999px; background: #eff6ff; border: 1px solid #dbeafe; padding: 4px 14px; font-size: 12px; font-weight: 600; color: #0066ff; margin-bottom: 16px;">
+              <span>Created by Tanmay Agarwal</span>
+              <span style="color: #93c5fd;">•</span>
+              <span>Review-First Ledger</span>
+            </div>
+            <p style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: #0066ff; margin: 0 0 16px;">WhisperLedger</p>
+            <h1 style="font-size: clamp(2.35rem, 6.2vw, 5.2rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.06em; color: #101827; margin: 0 0 24px;">
+              Money leaves a trail.<br /><span style="color: #0066ff;">Make it useful.</span>
+            </h1>
+            <p style="font-size: 18px; line-height: 1.6; color: #475569; margin: 0 0 32px;">
+              WhisperLedger is a review-first expense ledger for everyday spending, shared household costs and money that is still due back—without turning your finances into another full-time task.
+            </p>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <a href="#notify" style="display: inline-flex; align-items: center; gap: 8px; border-radius: 9999px; background: #101827; color: #ffffff; padding: 14px 24px; font-size: 14px; font-weight: 600; text-decoration: none;">
+                Get availability updates →
+              </a>
+              <a href="#product" style="display: inline-flex; align-items: center; gap: 8px; border-radius: 9999px; background: #ffffff; border: 1px solid #cbd5e1; color: #334155; padding: 14px 24px; font-size: 14px; font-weight: 600; text-decoration: none;">
+                Explore the product
+              </a>
+            </div>
+          </div>
 
-        <section id="features" style="text-align: left; margin-top: 60px;">
-          <h2 style="font-size: 28px; font-weight: 700; color: #ffffff; margin-bottom: 24px;">Key Capabilities</h2>
-          <article style="margin-bottom: 20px;">
-            <h3 style="font-size: 20px; font-weight: 600; color: #6366F1;">1-Tap Transaction Review</h3>
-            <p style="color: #94A3B8;">Real-time on-device SMS parsing extracts your bank debit alerts instantly, prompting you with a 1-tap Approve or Discard action.</p>
-          </article>
-          <article style="margin-bottom: 20px;">
-            <h3 style="font-size: 20px; font-weight: 600; color: #6366F1;">Household Shared Ledger</h3>
-            <p style="color: #94A3B8;">Split rent, groceries, and shared utilities with flatmates or family. Intelligent debt graph simplification minimizes settlement transactions.</p>
-          </article>
-          <article style="margin-bottom: 20px;">
-            <h3 style="font-size: 20px; font-weight: 600; color: #6366F1;">Receivables &amp; Refund Follow-ups</h3>
-            <p style="color: #94A3B8;">Never lose track of returned e-commerce orders, security deposits, or money lent to friends.</p>
-          </article>
-          <article style="margin-bottom: 20px;">
-            <h3 style="font-size: 20px; font-weight: 600; color: #6366F1;">Private &amp; Offline-First</h3>
-            <p style="color: #94A3B8;">Your financial data stays securely encrypted on your device with biometric authentication. No third-party ad trackers.</p>
-          </article>
-        </section>
+          <!-- Semantic Search Crawlable Architecture for Googlebot & SEO -->
+          <section id="about" style="margin-top: 80px; padding: 32px; background: #ffffff; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 4px 20px -4px rgba(0,0,0,0.05);">
+            <h2 style="font-size: 24px; font-weight: 700; color: #101827; margin: 0 0 12px;">What is WhisperLedger?</h2>
+            <p style="font-size: 15px; line-height: 1.6; color: #475569; margin: 0 0 24px;">
+              WhisperLedger is a review-first daily expense tracker and household financial ledger designed for India. It captures everyday INR spending, simplifies shared household splits, and follows up on refunds and money owed—without ads, intrusive bank logins, or spreadsheets.
+            </p>
+            <h3 style="font-size: 18px; font-weight: 700; color: #0066ff; margin: 0 0 8px;">Who Created WhisperLedger?</h3>
+            <p style="font-size: 15px; line-height: 1.6; color: #475569; margin: 0 0 24px;">
+              WhisperLedger was conceived, designed, and created by <strong>Tanmay Agarwal</strong> as an offline-ready, privacy-respecting financial ledger built specifically for Indian expense and household patterns.
+            </p>
+            <h3 style="font-size: 18px; font-weight: 700; color: #0066ff; margin: 0 0 8px;">What is the Prime Goal of WhisperLedger?</h3>
+            <p style="font-size: 15px; line-height: 1.6; color: #475569; margin: 0;">
+              The primary goal of WhisperLedger is to help you maintain a clean, frictionless record of where your money moves, eliminate group-chat math for shared flat expenses, and ensure forgotten refunds are recovered—all while keeping your financial data completely private and on-device.
+            </p>
+          </section>
+        </main>
 
-        <section id="about" style="text-align: left; margin-top: 40px; padding: 24px; background: rgba(30, 41, 59, 0.4); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08);">
-          <h2 style="font-size: 24px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">What is WhisperLedger?</h2>
-          <p style="color: #94A3B8; line-height: 1.6; margin-bottom: 16px;">
-            WhisperLedger is a review-first daily expense tracker and household financial ledger designed for India. It captures everyday INR spending, simplifies shared household splits, and follows up on refunds and money owed—without ads, intrusive bank logins, or spreadsheets.
+        <footer style="border-top: 1px solid #e2e8f0; background: #ffffff; padding: 32px 24px; text-align: center; color: #64748b; font-size: 13px;">
+          <p style="margin: 0 0 8px;">© 2026 WhisperLedger. Created by Tanmay Agarwal. All rights reserved. • Built for privacy &amp; precision in India.</p>
+          <p style="margin: 0;">
+            <a href="/privacy" style="color: #475569; text-decoration: none; margin: 0 12px;">Privacy Policy</a>
+            <a href="/terms" style="color: #475569; text-decoration: none; margin: 0 12px;">Terms of Service</a>
+            <a href="mailto:support@whisperledger.in" style="color: #475569; text-decoration: none; margin: 0 12px;">Contact</a>
           </p>
-          <h3 style="font-size: 18px; font-weight: 600; color: #6366F1; margin-bottom: 8px;">Who Created WhisperLedger?</h3>
-          <p style="color: #94A3B8; line-height: 1.6; margin-bottom: 16px;">
-            WhisperLedger was conceived, designed, and created by <strong>Tanmay Agarwal</strong> as an offline-ready, privacy-respecting financial ledger built specifically for Indian expense and household patterns.
-          </p>
-          <h3 style="font-size: 18px; font-weight: 600; color: #6366F1; margin-bottom: 8px;">What is the Prime Goal of WhisperLedger?</h3>
-          <p style="color: #94A3B8; line-height: 1.6;">
-            The primary goal of WhisperLedger is to help you maintain a clean, frictionless record of where your money moves, eliminate group-chat math for shared flat expenses, and ensure forgotten refunds are recovered—all while keeping your financial data completely private and on-device.
-          </p>
-        </section>
-
-        <section id="early-access" style="margin-top: 60px; padding: 32px; background: rgba(30, 41, 59, 0.5); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1);">
-          <h2 style="font-size: 28px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Get VIP Early Access</h2>
-          <p style="color: #94A3B8; margin-bottom: 20px;">Be the first to experience WhisperLedger when the public build launches.</p>
-        </section>
-      </main>
-
-      <footer style="margin-top: 80px; padding: 32px; border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center; color: #64748B;">
-        <p>© 2026 WhisperLedger. Created by Tanmay Agarwal. All rights reserved. • Built for privacy &amp; precision in India.</p>
-        <p style="margin-top: 8px;">
-          <a href="/privacy" style="color: #94A3B8; text-decoration: none; margin: 0 12px;">Privacy Policy</a>
-          <a href="/terms" style="color: #94A3B8; text-decoration: none; margin: 0 12px;">Terms of Service</a>
-          <a href="mailto:support@whisperledger.in" style="color: #94A3B8; text-decoration: none; margin: 0 12px;">Contact</a>
-        </p>
-      </footer>
+        </footer>
+      </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
