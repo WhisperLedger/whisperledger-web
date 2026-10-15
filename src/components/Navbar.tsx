@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Menu, X, ArrowRight, ShieldCheck } from 'lucide-react';
+import { scrollToWaitlist } from '../utils/scroll';
 
 export const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,6 +57,7 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-2.5">
             <a 
               href="/#notify" 
+              onClick={(e) => scrollToWaitlist(e)}
               className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#263246] shadow-sm hover:shadow active:scale-98"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -157,7 +159,10 @@ export const Navbar: React.FC = () => {
             <div className="pt-2">
               <a 
                 href="/#notify" 
-                onClick={() => setMobileOpen(false)} 
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  scrollToWaitlist(e);
+                }} 
                 className="flex items-center justify-center gap-2 w-full rounded-xl bg-[#0066FF] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-blue-500/25 hover:bg-[#0052CC] active:scale-98 transition"
               >
                 <span>Request VIP Early Access</span>

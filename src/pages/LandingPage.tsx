@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Check, LockKeyhole, Mic, ReceiptText, ShieldCheck, UsersRound } from 'lucide-react';
 import { ProductShowcase } from '../components/ProductShowcase';
 import { InterestForm } from '../components/InterestForm';
+import { scrollToWaitlist } from '../utils/scroll';
 
 const features = [
   { 
@@ -46,7 +47,17 @@ const faqs = [
   ['Who is it for?', 'It is for people who want a clear record of their own spending, and for households that need a calmer way to track shared costs and balances.'],
 ];
 
-export const LandingPage: React.FC = () => (
+export const LandingPage: React.FC = () => {
+  React.useEffect(() => {
+    if (window.location.hash === '#notify') {
+      const timer = setTimeout(() => {
+        scrollToWaitlist();
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  return (
     <div className="landing-page relative overflow-hidden bg-[#fbfcff] text-[#101827]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[680px] bg-[radial-gradient(circle_at_74%_24%,rgba(0,102,255,.12),transparent_27%),radial-gradient(circle_at_18%_12%,rgba(139,92,246,.09),transparent_24%)]" aria-hidden="true" />
 
@@ -58,7 +69,11 @@ export const LandingPage: React.FC = () => (
             Coming Soon
           </span>
           <span className="font-semibold text-slate-900">WhisperLedger for Android is in final invite-only testing.</span>
-          <a href="#notify" className="font-bold text-[#0066ff] underline underline-offset-2 hover:text-blue-700 ml-1">
+          <a 
+            href="#notify" 
+            onClick={(e) => scrollToWaitlist(e)}
+            className="font-bold text-[#0066ff] underline underline-offset-2 hover:text-blue-700 ml-1"
+          >
             Request your VIP Early Access invite &rarr;
           </a>
         </div>
@@ -80,7 +95,11 @@ export const LandingPage: React.FC = () => (
               Most finance apps sell your data, spam loan offers, or demand your bank passwords. We’re building something quietly different: an invite-first, on-device ledger designed for daily Indian spending, shared flat costs, and money owed back.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#notify" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#101827] px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#263246] active:scale-98">
+              <a 
+                href="#notify" 
+                onClick={(e) => scrollToWaitlist(e)}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#101827] px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-[#263246] active:scale-98"
+              >
                 Request VIP Early Access <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#product" className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-slate-300">
@@ -260,7 +279,7 @@ export const LandingPage: React.FC = () => (
           </div>
         </section>
 
-        <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8 sm:pb-32">
+        <section id="notify" className="scroll-mt-24 sm:scroll-mt-32 mx-auto max-w-6xl px-5 pb-24 sm:px-8 sm:pb-32">
           <div className="overflow-hidden rounded-[2rem] border border-[#d9e6f8] bg-white shadow-[0_24px_70px_-40px_rgba(0,64,160,.28)]">
             <div className="grid lg:grid-cols-[1.15fr_.85fr]">
               <div className="p-8 sm:p-14">
@@ -274,7 +293,7 @@ export const LandingPage: React.FC = () => (
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600">
                   We are handcrafting the Android release with biometric protection, 1-tap SMS review, and zero ads. Join the waitlist to receive your priority invite link the moment Batch 01 opens.
                 </p>
-                <div id="notify" className="scroll-mt-8">
+                <div>
                   <p className="mt-8 text-sm font-semibold text-slate-800">Enter your email for priority early access:</p>
                   <InterestForm />
                 </div>
@@ -346,5 +365,6 @@ export const LandingPage: React.FC = () => (
         </section>
       </div>
     </div>
-);
+  );
+};
 

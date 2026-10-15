@@ -18,6 +18,10 @@
     --canvas: #F8FAFF;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--canvas);
     color: var(--dark);
