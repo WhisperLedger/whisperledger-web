@@ -76,7 +76,7 @@ export const InterestForm = () => {
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="you@example.com"
-          className="min-h-12 flex-1 rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#0066ff] focus:ring-4 focus:ring-blue-100"
+          className="min-h-12 flex-1 rounded-xl border border-slate-200 bg-white px-4 text-base sm:text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#0066ff] focus:ring-4 focus:ring-blue-100"
           aria-describedby={state === 'error' ? 'interest-help interest-status' : 'interest-help'}
         />
         <button
