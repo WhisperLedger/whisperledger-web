@@ -79,7 +79,7 @@ export const InterestForm = () => {
 
     if (succeeded) {
       setState('success');
-      setMessage("You're on the list for Batch 01. We've reserved your priority access and will email your invite the moment it opens.");
+      setMessage("You're on the priority list! We've reserved your early access spot and will email your invite the moment WhisperLedger is ready.");
       setEmail('');
       setConsent(false);
     } else {

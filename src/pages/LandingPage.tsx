@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Check, LockKeyhole, Mic, ReceiptText, ShieldCheck, UsersRound } from 'lucide-react';
+import { ArrowRight, Check, LockKeyhole, Mic, ReceiptText, ShieldCheck, UsersRound, Sparkles, Smartphone } from 'lucide-react';
 import { ProductShowcase } from '../components/ProductShowcase';
 import { InterestForm } from '../components/InterestForm';
 import { scrollToSection, scrollToWaitlist } from '../utils/scroll';
@@ -41,7 +41,7 @@ const rhythmSteps = [
 const faqs = [
   ['What is WhisperLedger?', 'WhisperLedger is an offline-ready, review-first daily expense tracker and household financial ledger designed for India. It captures everyday INR spending, simplifies shared flat splits, and tracks pending refunds—without ads, intrusive bank logins, or spreadsheets.'],
   ['Who created WhisperLedger and what is its goal?', 'Conceived and created by Tanmay Agarwal, WhisperLedger gives individuals and households a clear record of daily spending, simplifies roommate bill splits, and ensures forgotten refunds are recovered—completely on-device.'],
-  ['When will WhisperLedger be available?', 'We are preparing the Android release candidate with a focus on biometric privacy and 1-tap SMS review. Join the early access waitlist to receive your priority invite link the moment Batch 01 opens.'],
+  ['When will WhisperLedger be available?', 'We are preparing the Android release candidate with a focus on biometric privacy and 1-tap SMS review. Join the early access waitlist to receive your priority invite link the moment WhisperLedger is ready.'],
   ['Will I need to enable SMS permissions?', 'No. Manual entry and voice logging work without SMS permissions. If you choose SMS capture, you can set it to automatic handling or manual approval.'],
   ['Does WhisperLedger need my bank login?', 'No. WhisperLedger is not a bank and does not ask for your bank username, password, or account credentials to keep a ledger.'],
   ['How are permissions handled?', 'Manual entry works without any sensitive permissions. You choose whether to use SMS capture, voice input, notifications, or optional sync.'],
@@ -273,48 +273,102 @@ export const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Limited Beta Waitlist Card */}
+        {/* Early Access Waitlist Card */}
         <section id="notify" className="scroll-mt-24 sm:scroll-mt-32 mx-auto max-w-6xl px-5 pb-12 sm:px-8 sm:pb-16">
-          <div className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
-            <div className="grid lg:grid-cols-[1.15fr_.85fr]">
-              <div className="p-7 sm:p-12 lg:p-14">
-                <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#0066ff]">
-                  <span className="w-2 h-2 rounded-full bg-[#0066ff] animate-ping" />
-                  Limited Beta Batch 01
-                </div>
-                <h2 className="mt-5 text-2xl sm:text-4xl lg:text-[2.65rem] font-bold leading-[1.12] tracking-[-0.035em] text-[#101827]">
-                  Be the first to experience WhisperLedger.
-                </h2>
-                <p className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-slate-600 font-normal">
-                  We are handcrafting the Android release with biometric protection, 1-tap SMS review, and zero ads. Join the waitlist to receive your priority invite link the moment Batch 01 opens.
-                </p>
+          <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-[0_20px_50px_-25px_rgba(0,102,255,0.12)]">
+            <div className="grid lg:grid-cols-[1.1fr_.9fr]">
+              {/* Left Column: Form & Core Value Proposition */}
+              <div className="p-7 sm:p-11 lg:p-14 flex flex-col justify-between">
                 <div>
-                  <p className="mt-6 sm:mt-8 text-sm font-semibold text-slate-800">Enter your email for priority early access:</p>
-                  <InterestForm />
+                  <div className="inline-flex items-center gap-2 rounded-full bg-blue-50/90 border border-blue-100 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#0066ff]">
+                    <span className="w-2 h-2 rounded-full bg-[#0066ff] animate-ping" />
+                    Private Early Access • Coming Soon
+                  </div>
+
+                  <h2 className="mt-5 text-2xl sm:text-4xl lg:text-[2.65rem] font-bold leading-[1.12] tracking-[-0.035em] text-[#101827]">
+                    Be the first to experience WhisperLedger.
+                  </h2>
+
+                  <p className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-slate-600 font-normal">
+                    We are handcrafting the Android release with on-device biometric protection, 1-tap SMS review, and zero financial ads. Join the waitlist to receive your priority invite link when the private beta launches.
+                  </p>
+
+                  <div className="mt-8">
+                    <p className="text-sm font-semibold text-slate-800">Enter your email for priority early access:</p>
+                    <InterestForm />
+                  </div>
+                </div>
+
+                {/* Sub-form trust assurances to give desktop view balanced substance */}
+                <div className="mt-8 pt-6 border-t border-slate-100 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs font-medium text-slate-500">
+                  <span className="inline-flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Free lifetime tier</span>
+                  <span className="inline-flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> No bank logins</span>
+                  <span className="inline-flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Unsubscribe anytime</span>
                 </div>
               </div>
 
-              <div className="flex flex-col justify-between bg-gradient-to-br from-[#f8faff] to-[#edf4fe] p-7 sm:p-12 lg:p-14 border-t lg:border-t-0 lg:border-l border-slate-200/70">
-                <ShieldCheck className="h-10 w-10 text-[#0066ff]" />
-                <div className="mt-8 lg:mt-0">
-                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">Early access perks</p>
-                  <p className="mt-3 text-base sm:text-lg font-bold leading-snug tracking-tight text-slate-900">
-                    Quiet, clean finance. No spam calls, no selling your credit score.
+              {/* Right Column: Early Access Pass & Benefits (Eliminates desktop blankness) */}
+              <div className="bg-gradient-to-br from-[#f8faff] via-[#f1f6fe] to-[#eaf2fc] p-7 sm:p-11 lg:p-14 border-t lg:border-t-0 lg:border-l border-slate-200/80 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between pb-5 border-b border-blue-200/60">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#0066ff] shadow-xs border border-blue-100">
+                        <ShieldCheck className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider text-[#0066ff]">VIP Tester Pass</p>
+                        <p className="text-sm font-bold text-slate-900">What early members receive</p>
+                      </div>
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 text-[11px] font-bold text-emerald-700">
+                      <Sparkles className="w-3 h-3 text-emerald-600" />
+                      Free Access
+                    </span>
+                  </div>
+
+                  <p className="mt-5 text-sm sm:text-base font-semibold text-slate-800 leading-snug">
+                    Quiet, clean finance. No spam calls, no selling your credit score, no ads.
                   </p>
-                  <div className="mt-6 space-y-3 text-xs sm:text-sm text-slate-700 font-medium">
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-                      <span>Release 1.0 Candidate for Android</span>
+
+                  <div className="mt-5 space-y-3">
+                    <div className="rounded-xl bg-white/90 p-3.5 border border-blue-100/70 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <strong className="text-xs font-bold text-slate-900">100% Free Lifetime Tier</strong>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Guaranteed</span>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500 font-normal leading-relaxed">
+                        Early adopters keep the lifetime core tier with zero paywalls or monthly subscription fees.
+                      </p>
                     </div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-                      <span>100% Free Lifetime Tier for Beta Testers</span>
+
+                    <div className="rounded-xl bg-white/90 p-3.5 border border-blue-100/70 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <strong className="text-xs font-bold text-slate-900">Direct Play Store Beta &amp; APK</strong>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#0066ff] bg-blue-50 px-2 py-0.5 rounded-full">Android</span>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500 font-normal leading-relaxed">
+                        Priority access to internal release candidates directly on the Google Play Store or private signed APK.
+                      </p>
                     </div>
-                    <div className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shrink-0" />
-                      <span>Private APK &amp; Direct Play Store Beta Access</span>
+
+                    <div className="rounded-xl bg-white/90 p-3.5 border border-blue-100/70 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <strong className="text-xs font-bold text-slate-900">Zero Cloud Scraping &amp; Ads</strong>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">On-Device</span>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500 font-normal leading-relaxed">
+                        Your SMS transactions stay encrypted in your device's local database. We never sell your spending habits.
+                      </p>
                     </div>
                   </div>
+                </div>
+
+                <div className="mt-6 pt-5 border-t border-blue-200/60 flex items-center justify-between text-xs text-slate-600 font-medium">
+                  <div className="flex items-center gap-2">
+                    <Smartphone className="w-4 h-4 text-[#0066ff]" />
+                    <span>Android 10+ Compatible</span>
+                  </div>
+                  <span className="text-slate-400">Tailored for Indian UPI &amp; INR</span>
                 </div>
               </div>
             </div>
