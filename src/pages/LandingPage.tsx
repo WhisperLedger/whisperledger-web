@@ -83,10 +83,6 @@ export const LandingPage: React.FC = () => {
         {/* Hero Section */}
         <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1.03fr_.97fr] lg:gap-16">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50/90 border border-blue-200/70 px-3.5 py-1.5 text-xs font-semibold text-[#0066ff] mb-5 shadow-xs">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Private Beta • Coming Soon</span>
-            </div>
             <p className="text-xs font-bold uppercase tracking-[.18em] text-[#0066ff]">WhisperLedger</p>
             <h1 className="mt-6 text-[clamp(2.35rem,6.2vw,5.2rem)] font-semibold leading-[.95] tracking-[-.06em] text-[#101827]">
               Money leaves a trail.<br /><span className="text-[#0066ff]">Make it useful.</span>
@@ -112,24 +108,8 @@ export const LandingPage: React.FC = () => {
               <span className="inline-flex items-center gap-1.5"><Check className="h-4 w-4 text-emerald-600" /> Built around INR spending</span>
             </div>
           </div>
-          <div id="product" className="relative min-h-[500px] scroll-mt-24 sm:min-h-[590px]">
-            {/* Replaced generic 'private by default' pill with an intriguing real preview */}
-            <div className="absolute -left-4 top-12 hidden w-52 rounded-2xl border border-blue-100 bg-white/95 p-4 shadow-[0_20px_50px_-24px_rgba(0,102,255,.3)] backdrop-blur md:block z-10">
-              <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[.14em] text-[#0066ff]">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
-                <span>Coming Soon to Android</span>
-              </div>
-              <p className="mt-2 text-xs font-bold leading-snug text-slate-900">
-                No bank logins.<br />No loan ads.<br />
-                <span className="text-slate-500 font-normal">Everything stays encrypted on your device.</span>
-              </p>
-            </div>
+          <div id="product" className="relative min-h-[500px] scroll-mt-24 sm:min-h-[590px] flex items-center justify-center">
             <ProductShowcase />
-            <div className="hidden sm:block absolute bottom-7 right-4 rounded-2xl border border-blue-100 bg-white/95 px-4 py-3 shadow-[0_20px_50px_-24px_rgba(0,102,255,.3)] backdrop-blur z-10">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-[#0066ff]">On-Device Intelligence</p>
-              <p className="mt-0.5 text-xs font-bold text-slate-900">1-Tap Bank SMS Review</p>
-              <p className="text-[11px] text-slate-500">Zero cloud scraping. Zero tracking.</p>
-            </div>
           </div>
         </section>
 

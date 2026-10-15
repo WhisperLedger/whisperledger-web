@@ -148,7 +148,7 @@ export const Navbar: React.FC = () => {
             <div className="mt-auto rounded-2xl bg-gradient-to-br from-blue-50/90 to-indigo-50/80 border border-blue-100 p-4 mb-4">
               <div className="flex items-center gap-2 text-xs font-bold text-[#0066FF] uppercase tracking-wider">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Private Beta • Coming Soon</span>
+                <span>Invite-Only Early Access</span>
               </div>
               <p className="mt-1.5 text-xs text-slate-600 leading-relaxed">
                 Handcrafted for Android. No bank logins, no loan ads, and 100% on-device encryption.
