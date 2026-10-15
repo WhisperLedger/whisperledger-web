@@ -23,17 +23,16 @@ export const Navbar: React.FC = () => {
 
         {/* Navigation Links */}
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
-            <a href="/#how-it-works" className="hover:text-primary transition-colors">How it Works</a>
-            <a href="/#features" className="hover:text-primary transition-colors">Features</a>
-            <a href="/#recovery" className="hover:text-primary transition-colors">Refunds</a>
-            <a href="/#pricing" className="hover:text-primary transition-colors">Pricing</a>
+            <a href="/#product" className="hover:text-primary transition-colors">The product</a>
+            <a href="/#features" className="hover:text-primary transition-colors">What it solves</a>
+            <a href="/#recovery" className="hover:text-primary transition-colors">Privacy</a>
+            <a href="/#faq" className="hover:text-primary transition-colors">Questions</a>
         </nav>
 
         {/* Actions CTA */}
         <div className="hidden sm:flex items-center gap-2.5">
-          <a href="/#early-access" className="inline-flex items-center gap-1.5 rounded-xl bg-[#101827] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#263246] shadow-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Request Early Access</span>
+          <a href="/#notify" className="inline-flex items-center rounded-xl bg-[#101827] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#263246] shadow-sm">
+            <span>Get availability updates</span>
           </a>
         </div>
 
@@ -63,15 +62,14 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
           <nav className="flex flex-col gap-5 py-8 text-base font-bold text-dark text-left">
-            <a href="/#how-it-works" onClick={() => setMobileOpen(false)} className="hover:text-primary">How it works</a>
-            <a href="/#features" onClick={() => setMobileOpen(false)} className="hover:text-primary">Features</a>
-            <a href="/#recovery" onClick={() => setMobileOpen(false)} className="hover:text-primary">Refunds</a>
-            <a href="/#pricing" onClick={() => setMobileOpen(false)} className="hover:text-primary">Pricing</a>
-            <a href="/#faq" onClick={() => setMobileOpen(false)} className="hover:text-primary">FAQ</a>
+            <a href="/#product" onClick={() => setMobileOpen(false)} className="hover:text-primary">The product</a>
+            <a href="/#features" onClick={() => setMobileOpen(false)} className="hover:text-primary">What it solves</a>
+            <a href="/#recovery" onClick={() => setMobileOpen(false)} className="hover:text-primary">Privacy</a>
+            <a href="/#faq" onClick={() => setMobileOpen(false)} className="hover:text-primary">Questions</a>
           </nav>
           <div className="mt-auto pt-6 border-t border-slate-100">
-            <a href="/#early-access" onClick={() => setMobileOpen(false)} className="btn-super-primary w-full justify-center !py-3.5">
-              <span>Request Early Access</span>
+            <a href="/#notify" onClick={() => setMobileOpen(false)} className="btn-super-primary w-full justify-center !py-3.5">
+              <span>Get availability updates</span>
             </a>
           </div>
         </div>

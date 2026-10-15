@@ -7,6 +7,7 @@ const sections = {
     intro: 'WhisperLedger stores account and ledger information in order to provide sync, household sharing, statements, and support. Voice and SMS permissions are optional and can be changed in device settings.',
     items: [
       ['What we process', 'Account profile data, ledger entries you choose to save, household membership, and support requests. We process notification tokens only to deliver notifications you opt into.'],
+      ['Availability updates', 'If you ask to be notified from this website, we store your email address and consent separately from any product account. We use it only for meaningful WhisperLedger availability updates until you opt out.'],
       ['Your controls', 'You can choose whether to use SMS capture, voice input, cloud sync, and push notifications. Do not enable a permission unless you understand its purpose.'],
       ['Data requests', 'Use the in-app support desk to request an export or deletion. We will verify account ownership before acting on a request.'],
     ],
@@ -40,7 +41,7 @@ export const LegalPage: React.FC = () => {
           </section>
         ))}
       </div>
-      <p className="mt-12 text-sm text-slate-500">Questions? <a className="text-primary font-bold hover:underline" href="mailto:support@whisperledger.app">Contact support</a>.</p>
+      <p className="mt-12 text-sm text-slate-500">Questions? <a className="text-primary font-bold hover:underline" href="mailto:support@whisperledger.in">Contact support</a>.</p>
     </main>
   );
 };
