@@ -16,6 +16,9 @@ const rhythmSteps = [
 ];
 
 const faqs = [
+  ['What is WhisperLedger?', 'WhisperLedger is a review-first daily expense tracker and household financial ledger designed for India. It captures everyday INR spending, simplifies shared household splits, and follows up on refunds and money owed—without ads, intrusive bank logins, or spreadsheets.'],
+  ['Who created WhisperLedger?', 'WhisperLedger was conceived and created by Tanmay Agarwal as an offline-ready, privacy-respecting financial ledger built specifically for Indian expense and household patterns.'],
+  ['What is the prime goal of WhisperLedger?', 'The primary goal of WhisperLedger is to help you maintain a clean, frictionless record of where your money moves, eliminate group-chat math for shared flat expenses, and ensure forgotten refunds are recovered—all while keeping your financial data completely private and on-device.'],
   ['When will WhisperLedger be available?', 'We are preparing the Android release with a focus on reliability, privacy and a clear first-run experience. Availability will be announced here when it is ready.'],
   ['Will I need to enable SMS permissions?', 'No. Manual entry and voice logging work without SMS permissions. If you choose SMS capture, you can set it to automatic handling or manual approval.'],
   ['Does WhisperLedger need my bank login?', 'No. WhisperLedger is not a bank and does not ask for your bank username, password or account credentials to keep a ledger.'],
@@ -30,6 +33,11 @@ export const LandingPage: React.FC = () => (
         {/* Hero Section */}
         <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1.03fr_.97fr] lg:gap-16">
           <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-blue-50/80 border border-blue-100/80 px-3.5 py-1 text-xs font-semibold text-[#0066ff] mb-4">
+              <span>Created by Tanmay Agarwal</span>
+              <span className="text-blue-300">•</span>
+              <span>Review-First Ledger</span>
+            </div>
             <p className="text-xs font-bold uppercase tracking-[.18em] text-[#0066ff]">WhisperLedger</p>
             <h1 className="mt-6 text-[clamp(2.35rem,6.2vw,5.2rem)] font-semibold leading-[.95] tracking-[-.06em] text-[#101827]">
               Money leaves a trail.<br /><span className="text-[#0066ff]">Make it useful.</span>

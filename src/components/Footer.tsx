@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
         <div className="flex items-center gap-2">
           <img src="/assets/logo.png" alt="WhisperLedger" className="w-6 h-6 rounded-md object-cover" />
           <span className="font-bold text-dark">WhisperLedger</span>
-          <span>© 2026 WhisperLedger Technologies.</span>
+          <span>© 2026 • Created by Tanmay Agarwal.</span>
         </div>
         <div className="flex flex-wrap items-center gap-5 justify-center">
           <a href="/#product" className="hover:text-primary transition-colors">The product</a>
