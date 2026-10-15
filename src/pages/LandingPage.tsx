@@ -26,12 +26,12 @@ export const LandingPage: React.FC = () => (
     <div className="landing-page relative overflow-hidden bg-[#fbfcff] text-[#101827]">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[680px] bg-[radial-gradient(circle_at_74%_24%,rgba(0,102,255,.12),transparent_27%),radial-gradient(circle_at_18%_12%,rgba(139,92,246,.09),transparent_24%)]" aria-hidden="true" />
 
-      <main>
+      <div>
         {/* Hero Section */}
         <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1.03fr_.97fr] lg:gap-16">
           <div className="max-w-xl">
             <p className="text-xs font-bold uppercase tracking-[.18em] text-[#0066ff]">WhisperLedger</p>
-            <h1 className="mt-6 text-[clamp(3.1rem,6.4vw,5.8rem)] font-semibold leading-[.93] tracking-[-.07em] text-[#101827]">
+            <h1 className="mt-6 text-[clamp(2.35rem,6.2vw,5.2rem)] font-semibold leading-[.95] tracking-[-.06em] text-[#101827]">
               Money leaves a trail.<br /><span className="text-[#0066ff]">Make it useful.</span>
             </h1>
             <p className="mt-7 max-w-lg text-lg leading-relaxed text-slate-600 sm:text-xl">
@@ -57,7 +57,7 @@ export const LandingPage: React.FC = () => (
               <p className="mt-2 text-sm font-semibold leading-snug text-slate-800">Private by default.<br />Useful by choice.</p>
             </div>
             <ProductShowcase />
-            <div className="absolute bottom-7 right-0 rounded-2xl border border-[#dbe8ff] bg-[#f7faff]/95 px-4 py-3 shadow-[0_18px_45px_-24px_rgba(0,102,255,.32)] backdrop-blur sm:right-5">
+            <div className="hidden sm:block absolute bottom-7 right-5 rounded-2xl border border-[#dbe8ff] bg-[#f7faff]/95 px-4 py-3 shadow-[0_18px_45px_-24px_rgba(0,102,255,.32)] backdrop-blur">
               <p className="text-xs font-bold text-[#005fd6]">One calm view.</p>
               <p className="mt-1 text-xs text-slate-500 font-medium">Spend, share, follow up.</p>
             </div>
@@ -214,7 +214,7 @@ export const LandingPage: React.FC = () => (
             ))}
           </div>
         </section>
-      </main>
+      </div>
     </div>
 );
 
